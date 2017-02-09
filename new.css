@@ -1,147 +1,153 @@
 
 html,
 
+/*100% CONTAINER FOR THE WEB*/
 div.container {
     width: 100%;
-	margin:0px;
-	padding:0px;
-	position: relative;
-}
-#tophead {
-	margin:0px;
-	padding:0px;
-	top:0px;
-	width:100%;
-    height:3%;
-	min-height:30px;
-	background-color: #1f4401;
-	color:white;
-	text-align:right;
+    margin:0px;
+    padding:0px;
+    position: relative;
 }
 
+/*TOP BAR - CONTAINS SEARCH BAR*/
+#tophead {
+    margin:0px;
+    padding:0px;
+    top:0px;
+    width:100%;
+    height:3%;
+    min-height:25px;
+    background-color: #4eab04;
+    color:white;
+    text-align:right;
+}
+
+/*HEADER SETTINGS*/
 header {
     width:100%;
-    height:15%;
-	background-color: #4eab04;
-	margin:0px;
-	padding:0px;
-	min-height:120px;
+    height:12%;
+    background-color: #4eab04;
+    margin:0px;
+    padding:0px;
+    min-height:100px;
 }
 
+/*BODY SETTINGS*/
 body  {
-	width:100%;
-	height:75%;
-	min-height:400px;
-    /*background-size: cover;*/
+    width:100%;
+    height:75%;
+    min-height:400px;
     background-color: #000;
-	margin:0px;
+    margin:0px;
     padding:0px;
 }
-/*
-body * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-}
 
-*/
-
+/*LOGO SETTINGS*/
 #logoimg {
     margin:0px;
     padding:10px;
-    top:70px;
+    top:40px;
     left:2%; 
-	position:absolute;
+    position:absolute;
 }
 
+/*NAVIGATION SETTINGS*/
 #nav {
-
     text-align:center;
-	margin:0px;
-    padding:18px;
-	padding-left:190px;
-	
-  	
+    margin-top:-20px;
+    padding:5px;
+    padding-top:0px;
+    padding-left:190px;
 }
+
+/*SIDEBAR NAV SETTINGS*/
 #sidenav {
-	float: left;
-	display: block;
-	margin: 0;
-	padding:0;
-	min-width: 250px;
-	max-width:250px;
-	height:100%;
-	text-align: center;
-	background:#212121;
-	min-height:1200px;
-
-	
+    float: left;
+    display: block;
+    margin: 0;
+    padding:0;
+    min-width: 250px;
+    max-width:250px;
+    height:100%;
+    text-align: center;
+    background:#212121;
+    min-height:1200px;
 }
+
+/*SIDEBAR CONTENT SETTINGS*/
 .sidecontent {
-	font: 14px Arial Black; 
-	text-align: left;
-	display:block;
-	margin:0;
-	padding:0;
-	padding-left:20px;
-	
-}
-.sidecontentcat {
-	font: 14px Arial Black; 
-	text-align: left;
-	display:block;
-	margin:0;
-	padding:0;
-	padding-left:10px;
-	
-}
-.sidecontent a:hover {
-	/*change colour of font on hover*/
-	color:#656565;
+    font: 14px Arial Black; 
+    text-align: left;
+    display:block;
+    margin:0;
+    padding:0;
+    padding-left:20px;
+
 }
 
+/*SIDEBAR CONTENT CATEGORIES SETTINGS*/
+.sidecontentcat {
+    font: 14px Arial Black; 
+    text-align: left;
+    display:block;
+    margin:0;
+    padding:0;
+    padding-left:10px;
+
+}
+
+/*SIDEBAR CONTENT ON HOVER SETTINGS*/
+.sidecontent a:hover {
+    /*change colour of font on hover*/
+    color:#656565;
+}
+
+/*DROPDOWN MENU SETTINGS*/
 .dropbtn{
     display:block;
-    /* Setting spaces between links */
     padding:18px;
-	text-align:right;
-	font: bold 16px Arial Black; 
-	cursor: pointer;
-	position: relative;
-	
-	
+    text-align:right;
+    font: bold 16px Arial Black; 
+    cursor: pointer;
+    position: relative;
+
 }
+
+/*NAVIGATION LINKS SETTINGS*/
 li{
     /* Setting navigation inline, one next to another */
     display:inline-block;
-    /* Setting spaces between links */
     padding:18px;
-	text-align:right;
-	color:white;
-	font: bold 16px Arial Black; 
-	
-	
+    text-align:right;
+    color:white;
+    font: bold 16px Arial Black;
 }
+
+/*NAVIGATION LINKS/DROPDOWN ON HOVER SETTINGS*/
 li a:hover, .dropdown:hover .dropbtn {
-	/*change colour of font on hover*/
-	color:black;
+    /*change colour of font on hover*/
+    color:black;
 }
 
+/*DEAFULT LINKS SETTINGS*/
 a {
-	/*change colour of font on hover*/
-	color:white;
-	text-decoration: none;
+    /*change colour of font on hover*/
+    color:white;
+    text-decoration: none;
 }
 
+/*DROPDOWN CONTENT SETTINGS*/
 .dropdown-content {
     display: none;
     position: absolute;
     background-color: #f9f9f9;
     min-width: 160px;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-	z-index:1;
+    /*order of appearance*/
+    z-index:1;
 }
 
+/*DROPDOWN CONTENT LINKS SETTINGS*/
 .dropdown-content a {
     color: black;
     padding: 12px 16px; 
@@ -150,109 +156,120 @@ a {
     text-align: left;
 }
 
+/*DROPDOWN CONTENT LINKS ON HOVER SETTINGS*/
 .dropdown-content a:hover {
-	background-color: #c7c7c7;
+    background-color: #c7c7c7;
 }
 
-	
+/*DROPDOWN ON HOVER SETTINGS*/
 .dropdown:hover .dropdown-content {
     display: inline-block;
 }
 
-
+/*DROPDOWN LINKS SETTINGS*/
 ul {
     margin:0px;
     padding:0px;
-	top:50px;
-	list-style-type: none;
-	overflow: hidden;
+    top:50px;
+    list-style-type: none;
+    /*dropdown links hidden until hovered over*/
+    overflow: hidden;
 }
 
-/* slideshow */
 
+
+/* SLIDESHOW SETTINGS */
+
+
+/*SLIDES HIDDEN, 100% WIDTH*/
 .mySlides {
-	display:none;
-	width: 100%;
-	min-height:400px;
+    display:none;
+    width: 100%;
+    min-height:400px;
 }
 
 
 
-/* Slideshow container */
+/*SLIDESHOW CONTAINER*/
 .slideshow-container {
-  width: 100%;
-  min-height: 400px;
-  position: relative;
-  margin: auto;
-  
+    width: 100%;
+    min-height: 400px;
+    position: relative;
+    margin: auto;
+
 }
 
 
-/* The dots/bullets/indicators */
+/* THE SLIDER DOTS SETTINGS */
 .dot {
-  height: 13px;
-  width: 13px;
-  margin: 0px 4px;
-  background-color: #bbb;
-  position: relative;
-  top:-10px;
-  /* dots design */
-  border-radius: 50%; 
-  display: inline-block;
-  transition: background-color 0.6s ease;
+    height: 13px;
+    width: 13px;
+    margin: 0px 4px;
+    background-color: #bbb;
+    position: relative;
+    top:-10px;
+    /* dots design */
+    border-radius: 50%; 
+    display: inline-block;
+    transition: background-color 0.6s ease;
 }
 
+/*ACTIVE DOT SETTINGS*/
 .active {
-  background-color: #717171;
+    background-color: #717171;
 }
 
-/* Fading animation */
+/* FADING SLIDE SETTING */
 .fade {
-  -webkit-animation-name: fade;
-  -webkit-animation-duration: 1.5s;
-  animation-name: fade;
-  animation-duration: 1.5s;
-  max-height:490px;
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s;
+    max-height:490px;
 }
 
 
 @-webkit-keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
+    from {opacity: .4} 
+    to {opacity: 1}
 }
 
 @keyframes fade {
-  from {opacity: .4} 
-  to {opacity: 1}
+    from {opacity: .4} 
+    to {opacity: 1}
 }
 
+/*CAPTION ON SLIDE SETTINGS*/
 .caption{
-	line-height:20px;
-	position:relative;
-	max-width:200px;
-	top:-200px;
-	left:50px;
-	color:#fff;
-	text-transform:none;
-	font-family:Arial;
-	text-align:left;
-	font-size:18px;
+    line-height:20px;
+    position:relative;
+    max-width:200px;
+    top:-200px;
+    left:50px;
+    color:#fff;
+    text-transform:none;
+    font-family:Arial;
+    text-align:left;
+    font-size:18px;
 }
 
+/*2ND TYPE CAPTION ON SLIDE SETTINGS*/
 .caption2{
-	line-height:20px;
-	position:relative;
-	max-width:200px;
-	top:-200px;
-	left:735px;
-	color:#fff;
-	text-transform:none;
-	font-family:Arial;
-	text-align:left;
-	font-size:18px;
+    line-height:20px;
+    position:relative;
+    max-width:200px;
+    top:-200px;
+    left:735px;
+    color:#fff;
+    text-transform:none;
+    font-family:Arial;
+    text-align:left;
+    font-size:18px;
 }
+
+/*BUTTON APPEARANCE SETTINGS*/
 button{
-	
+
     border: 2px solid #4eab04;
     background-color: #4eab04;
     color: white;
@@ -263,46 +280,44 @@ button{
 
 }
 
+/*FOOTER SETTINGS*/
 #footer {
-    background:#323232;
-    /* Setting the section to be displayed in the middle */
+    background:#1d1d1d;
     padding:0px;
-	margin:auto;
-    /* Setting the section to be 100% width */
+    margin:auto;
     width:100%;
-	clear:both;
-    /* Setting the text to get placed in center */
+    clear:both;
     text-align:center;
-	min-height:100px;
+    min-height:200px;
 }
 
+/*SECTION SETTINGS*/
 #section {
     background-color: black;
-    /* Setting the section to be displayed in the middle */
     margin: auto;
     /*Setting minimum height of the section */
     min-height: 400px;
     color: gray;
     font: bold 18px Arial Black;
-	text-align:left;
+    text-align:left;
 }
 
+/*H1 SETTINGS*/
 #h1 {
     margin: auto;
     width:100%;
     display:inline;
-    /* Setting the text to get placed in center */
     clear:both;
-	font: bold 18px Arial Black;
+    font: bold 18px Arial Black;
 }
 
-
+/*SHOP PAGE SECTION SETTINGS*/
 #shopSection {
-	background-color:white;
-	margin:0;
-	min-height: 400px;
+    background-color:white;
+    margin:0;
+    min-height: 400px;
     color: gray;
-	padding:0;
+    padding:0;
 }
 
 
@@ -315,7 +330,7 @@ input[type]  {
     border: 1.5px solid #323232;
     box-sizing: border-box;  
 }
-
+/*APPEARANCE OF THE SELECT TYPE FIELDS*/
 select {
     width: 100%;
     padding: 10px 18px;
@@ -325,7 +340,7 @@ select {
     box-sizing: border-box;  
 }
 
-/*APPEARANCE OF SUBMIT*/
+/*APPEARANCE OF SUBMIT BUTTON*/
 input[type=submit] {
     width: 50%;
     display: inline-block;
@@ -338,9 +353,45 @@ input[type=submit] {
     cursor: pointer;
 }
 
+#searchBar {
+
+}
+
+/*SEARCHBAR APPEARANCE SETTINGS*/
+#searchBar input[type] {
+    width: 150px;
+    height: 29px;
+    text-align:right;
+    box-sizing: border-box;
+    border: 0px;
+    color: white;
+    font-size: bold 16px Arial Black;
+    background-color: #4eab04;
+    padding: 10px 20px 12px 40px;
+    /*search icon*/
+    background-image: url("img/search.png");
+    background-repeat: no-repeat;
+    /*search bar animation*/
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+
+/*SEARCHBAR ANIMATION SETTINGS*/
+#searchBar input[type]:focus {
+    width: 300px;
+    border: 2px solid #fff;
+    border-radius: 4px;
+}
+
+/*SEARCHBAR PLACEHOLDER SETTINGS*/
+#searchBar ::-webkit-input-placeholder { /* placeholder styling*/
+    color: white;
+    font: bold 12px Arial Black;
+}
 
 /*APPEARANCE OF THE FORM*/
 #form2 {
+    /*visibility function to be hidden when user logged in, log out button appear instead*/
     visibility:visible;
     text-align: left;
     margin: center;
@@ -352,6 +403,7 @@ input[type=submit] {
     font: bold 16px Arial Black;   
 }
 
+/*ARTICLE SETTINGS*/
 .article {
     display: block;
     float: left;
@@ -362,28 +414,32 @@ input[type=submit] {
     border-left: 1px solid #dbdbdb;
     border-right: 1px solid #dbdbdb;
     margin: 0 -1px 0 0;
+    /*border appearance*/
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
-	font: 12px Arial Black;
+    font: 12px Arial Black;
 }
 .article p{
-	font: 12px Arial Black;
+    font: 12px Arial Black;
 }
 
+/*ARTICLE IMAGES SETTINGS*/
 .article img {
-	width:200px;
-	height:200px;
-	
+    width:200px;
+    height:200px;
+
 }
 
+/*ARTICLE IMAGES ON HOVER SETTINGS*/
 .article img:hover{
-	width:220px;
-	height:220px;
+    width:220px;
+    height:220px;
 }
 
+/*ARTICLE BUTTON SETTINGS*/
 .article button{
-	
+
     border: 2px solid #4eab04;
     background-color: #4eab04;
     color: white;
@@ -391,5 +447,75 @@ input[type=submit] {
     padding: 10px 16px;
     margin: 8px 0;
     cursor: pointer;
+}
 
+
+/*ARTICLE ON FOOTER SETTINGS*/
+#footer article {
+    display: block;
+    float: left;
+    width: 400px;
+    text-align: left;
+    padding: 20px 0 1px 50px;
+    height: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font: 12px Arial Black;
+    color: white;
+}
+
+/*H4 STYLE ON FOOTER*/
+#footer h4 {
+    color: #4eab04;	
+    font: 13px Arial Black;
+}
+/*
+#cart article {
+    display: inline-block;
+    float: left;
+    width: 100%;
+    text-align: left;
+    padding: 20px 0 1px 50px;
+    height: 100px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    font: 12px Arial Black;
+}
+#cart article img {
+    width:200px;
+    height:200px;
+
+} */
+#cart {
+    text-align: center;
+    width: 100%;
+    
+
+}
+#cart table {
+    border-collapse: collapse;
+    width: 95%;
+    text-align: center;
+   
+}
+
+#cart th, td {
+    text-align: center;
+    padding: 15px;
+     padding-left: 50px;
+    font: bold 14px Arial Black;
+     border-bottom: 1px solid #ddd;
+    
+}
+#cart th {
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+    padding-left: 50px;
+    font: bold 18px Arial Black;
+}
+#cart img {
+    width: 200px;
+    height: 200px;
 }
