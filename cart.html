@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GameWorld - Login</title>
-        <link rel="stylesheet" type="text/css" href="new.css" />
+        <title>GameWorld - Cart</title>
+        <link rel="stylesheet" type="text/css" href="new.css" />	
         <!--google icons !-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -10,9 +10,9 @@
     <body>
         <div class="container">
             <div id="tophead">
+                <!--search bar form-->
                 <div id="searchBar">
                     <form>
-                        <!--search form-->
                         <input type="text" name="search" placeholder="SEARCH...">
                     </form>
                 </div>
@@ -20,6 +20,7 @@
 
             <header>
                 <div id="logoimg">
+
                     <a href="test.html">
                         <img src="img/logo1.png"/>
                     </a>
@@ -29,8 +30,9 @@
                     <!--navigation-->
                     <div id="nav">
                         <ul>
+
                             <li><a href="test.html">HOME</a></li>
-                            <!--dropdown menu !-->
+                            <!--dropdown menu  !-->
                             <li class="dropdown">
                                 <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
@@ -41,7 +43,7 @@
                                 </div>
                             </li>
                             <li><a href="about.html">ABOUT US</a></li>
-                            <!--dropdown menu !-->
+                            <!--dropdown menu-->
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
@@ -60,50 +62,98 @@
                 </nav>
             </header>
             <section>
-                <!--change default setting for text align to center !-->
-                <div id="section" style="text-align:center">
-                    <br>
-                    <h1 id ="h1">Login</h1>
-                    <br>
-                    <h2>
-                        <!-- login form !-->
-                        <div id="form2" style="width:50%">
+                <!--change default setting of text align to center !-->
+                <div id="section" style="text-align:center;background-color:white">
+                    <!--
+                    <h2 style="margin:0;padding:0;text-align:left;">My Cart</h2>
+                    <div id="cart">
+                    <article>
+                        <img src="img/CALLDUTY.png"/>
+                        <p>Call Of Duty Advanced Warfare</p>
+                    </article>
+                    -->
+                    <div id="cart">
+                        <br>
+                        <h3 style="padding=0px;padding-left:10px;margin:0px;
+                            text-align:left;">
+                            My Cart</h3>
+                        <br>
+                        <!--cart table -->
+                        <table>
+                            <tr>
+                                <th>Item</th>
+                                <th>Description</th>
+                                <th>Quantity</th> 
+                                <th>Price</th>
+                                <th>Subtotal Price</th>
 
-                            <form id="usrDetails" onsubmit="return false" method = "post">
-                                Email: <br>
-                                <input type ="email" id="emailInput" style="width:100%" required><br>
-                                Password: <br>
-                                <input type = "password" id="passwordInput" style="width:80%" required><br>
-                                <input type="submit">
+                            </tr>
+                            <tr>
+                                <td><img src="img/CALLDUTY.png"/></td>
+                                <td>Call Of Duty Advanced Warfare</td>
+                                <td>
+                                    <!--quantity of products -->
+                                    <input type='number' size='1' id='numberinput' name='mynumber' value='0' step='1' min='1' max='10' style="border:2px solid #ddd;"/>
+                                    <a href="#" style="font:10px Arial Black;color:gray"> Remove</a>
+                                </td>
+                                <td>£9.99</td>
+                                <td>£9.99</td>
+                            </tr>
+                            <tr>
+                                <td><img src="img/destiny.jpg"/></td>
+                                <td>Destiny</td>
+                                <td><input type='number' size='1' id='numberinput' name='mynumber' value='0' step='1' min='1' max='10' style="border:2px solid #ddd;"/>
+                                    <a href="#" style="font:10px Arial Black;color:gray"> Remove</a>
+                                </td>
+                                <td>£25.99</td>
+                                <td>£25.99</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                </td>
+                                <td>Total Price: </td>
+                                <td>£34.98</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                </td>
+                                <td></td>
+                                <td><button>BUY IT NOW</button></td>
+                            </tr>
 
-                            </form>
-                        </div>
+                        </table>
+
+                    </div>
                 </div>
 
             </section>
 
-            <!--Footer -->
+            <!--footer-->
             <footer>
                 <div id="footer">
                     <article>
                         <h4>INFORMATION </h4>
 
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 star</i>
                             100% CUSTOMER SATISFACTION!
                         </p>
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 local_shipping</i>
                             100% FREE DELIVERY!
                         </p>
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 check_box</i>
@@ -119,7 +169,7 @@
                     <article>
                         <h4>ABOUT US </h4>
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 room</i>
@@ -128,20 +178,21 @@
                             London N4 89GR 
                         </p>
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 call</i>
                             0208-123-456
                         </p>
                         <p>
-                            <!--google icon-->
+                            <!--google icon!-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 email</i>
                             info@gameworld.co.uk
                         </p>
                     </article>
+
                 </div>
             </footer>
         </div>

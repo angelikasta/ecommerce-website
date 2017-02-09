@@ -1,192 +1,202 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> test test</title>
+        <title> GameWorld </title>
         <link rel="stylesheet" type="text/css" href="new.css" />	
-		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <!--google icons !-->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     </head>
-	<body>
-	<div class="container">
-    <div id="tophead">
-        <div id="searchBar">
-			<form>
-				<input type="text" name="search" placeholder="SEARCH...">
-			</form>
-		</div>
-    </div>
-	
-    <header>
-        <div id="logoimg">
-			<a href="test.html">
-            <img src="img/logo1.png"/>
-			</a>
-        </div>
+    <body>
+        <div class="container">
+            <div id="tophead">
+                <!--search bar form-->
+                <div id="searchBar">
+                    <form>
+                        <input type="text" name="search" placeholder="SEARCH...">
+                    </form>
+                </div>
+            </div>
 
-        <nav>
-            <div id="nav">
-                <ul>
+            <header>
+                <div id="logoimg">
+                    <a href="test.html">
+                        <img src="img/logo1.png"/>
+                    </a>
+                </div>
 
-                    <li><a href="test.html">HOME</a></li>
-             
-                    <li class="dropdown">
-                        <a class="dropbtn">SHOP BY CONSOLE</a>
-                        <div class="dropdown-content">
-							<a href="shoptest.html">ALL GAMES</a>
-                            <a href="#">XBOX </a>
-                            <a href="#">PLAYSTATION </a>
-                            
+                <nav>
+                    <!--navigation-->
+                    <div id="nav">
+                        <ul>
+
+                            <li><a href="test.html">HOME</a></li>
+                            <!--dropdown menu !-->
+                            <li class="dropdown">
+                                <a class="dropbtn">SHOP BY CONSOLE</a>
+                                <div class="dropdown-content">
+                                    <a href="shoptest.html">ALL GAMES</a>
+                                    <a href="#">XBOX </a>
+                                    <a href="#">PLAYSTATION </a>
+
+                                </div>
+                            </li>
+                            <li><a href="about.html">ABOUT US</a></li>
+                            <!--dropdown menu-->
+                            <li class="dropdown">
+                                <a class="dropbtn">MY ACCOUNT</a>
+                                <div class="dropdown-content">
+                                    <a href="login.html">LOGIN </a>
+                                    <a href="register.html">REGISTER </a>
+                                    <a href="myinfo.html">MY INFO</a>
+
+                            </li>
+                            <!--google shopping cart icons !-->
+                            <a href="cart.html"><i class="material-icons" style="color:white;
+                                                   text-align:right;font-size:26px;">
+                                    shopping_cart</i></a>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <section>
+                <!--slideshow!-->
+                <div class="slideshow-container">
+
+                    <div class="mySlides fade">
+
+                        <img src="img/slide_01.jpg" style="width:100%">
+                        <div class="caption">
+                            <button>SHOP NOW</button>
                         </div>
-						</li>
-						<li><a href="about.html">ABOUT US</a></li>
-                    <li class="dropdown">
-						<a class="dropbtn">MY ACCOUNT</a>
-						<div class="dropdown-content">
-							<a href="login.html">LOGIN </a>
-                            <a href="register.html">REGISTER </a>
-							<a href="myinfo.html">MY INFO</a>
-                        
-							</li>
-							
-						<a href="#"><i class="material-icons" style="color:white;
-						text-align:right;font-size:26px;">
-					shopping_cart</i></a>
+
+                    </div>
+
+                    <div class="mySlides fade">
+
+                        <img src="img/slide6.jpg" style="width:100%">
+                        <div class="caption">
+                            <button>SHOP NOW</button>
+                        </div>
+
+                    </div>
+
+                    <div class="mySlides fade">
+
+                        <img src="img/slide7.jpg" style="width:100%">
+                        <div class="caption2">
+                            <button>SHOP NOW</button>
+                        </div>
+
+                    </div>
 
 
-                </ul>
-            </div>
+                    <!--slideshow pagination !-->
+                    <div style="text-align:center">
+                        <span class="dot"></span> 
+                        <span class="dot"></span> 
+                        <span class="dot"></span> 
 
-        </nav>
-    </header>
-	<section>
+                    </div>
 
-        <div class="slideshow-container">
+                    <script>
+                        var slideIndex = 0;
+                        showSlides();
 
-            <div class="mySlides fade">
-				
-                <img src="img/slide_01.jpg" style="width:100%">
-				<div class="caption">
-				<button>SHOP NOW</button>
-				</div>
-				
+                        //slideshow appearance function
+                        function showSlides() {
+                            var i;
+                            //get all slides
+                            var slides = document.getElementsByClassName("mySlides");
+                            var dots = document.getElementsByClassName("dot");
 
-            </div>
+                            //loop through all slides
+                            for (i = 0; i < slides.length; i++) {
+                                slides[i].style.display = "none";
+                            }
+                            //slide index
+                            slideIndex++;
 
-            <div class="mySlides fade">
+                            if (slideIndex > slides.length) {
+                                slideIndex = 1
+                            }
 
-                <img src="img/slide6.jpg" style="width:100%">
-				<div class="caption">
-				<button>SHOP NOW</button>
-				</div>
+                            for (i = 0; i < dots.length; i++) {
+                                dots[i].className = dots[i].className.replace(" active", "");
+                            }
+                            //display current slide
+                            slides[slideIndex - 1].style.display = "block";
+                            //display correct 'dot' per slide
+                            dots[slideIndex - 1].className += " active";
+                            //change slide every 4sec
+                            setTimeout(showSlides, 4000);
+                        }
+                    </script>
+            </section>
 
-            </div>
+            <footer>
+                <div id="footer">
+                    <article>
+                        <h4>INFORMATION </h4>
 
-            <div class="mySlides fade">
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                star</i>
+                            100% CUSTOMER SATISFACTION!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                local_shipping</i>
+                            100% FREE DELIVERY!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                check_box</i>
+                            100% FREE RETURNS!
+                        </p>
+                    </article>
 
-                <img src="img/slide7.jpg" style="width:100%">
-				<div class="caption2">
-				<button>SHOP NOW</button>
-				</div>
+                    <article>
+                        <h4>PAYMENTS</h4>
+                        <img src="img/paypal2.png" style="width:280px;"/>
+                    </article>
 
-            </div>
+                    <article>
+                        <h4>ABOUT US </h4>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                room</i>
+                            Game World , 1234 Example Road,
+                            <br>
+                            London N4 89GR 
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                call</i>
+                            0208-123-456
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                email</i>
+                            info@gameworld.co.uk
+                        </p>
+                    </article>
 
 
-
-            <div style="text-align:center">
-                <span class="dot"></span> 
-                <span class="dot"></span> 
-                <span class="dot"></span> 
-            
+                </div>
+            </footer>
         </div>
-
-        <script>
-            var slideIndex = 0;
-            showSlides();
-
-            function showSlides() {
-                var i;
-                var slides = document.getElementsByClassName("mySlides");
-                var dots = document.getElementsByClassName("dot");
-
-                for (i = 0; i < slides.length; i++) {
-                    slides[i].style.display = "none";
-                }
-                slideIndex++;
-
-                if (slideIndex > slides.length) {
-                    slideIndex = 1
-                }
-
-                for (i = 0; i < dots.length; i++) {
-                    dots[i].className = dots[i].className.replace(" active", "");
-                }
-
-                slides[slideIndex - 1].style.display = "block";
-
-                dots[slideIndex - 1].className += " active";
-
-                setTimeout(showSlides, 4000); // Change image every 4 seconds
-            }
-        </script>
-	</section>
-    
-	<footer>
-	<div id="footer">
-		<article>
-		<h4>INFORMATION </h4>
-		
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					star</i>
-			100% CUSTOMER SATISFACTION!
-		</p>
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					local_shipping</i>
-			100% FREE DELIVERY!
-		</p>
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					check_box</i>
-			100% FREE RETURNS!
-		</p>
-		</article>
-		
-		<article>
-		<h4>PAYMENTS</h4>
-		<img src="img/paypal2.png" style="width:280px;"/>
-		</article>
-		
-		<article>
-		<h4>ABOUT US </h4>
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					room</i>
-			Game World , 1234 Example Road,
-			<br>
-			London N4 89GR 
-		</p>
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					call</i>
-			0208-123-456
-		</p>
-		<p>
-			<i class="material-icons" style="color:#4eab04; font-size:16px;
-					padding:0px 3px 0px 3px;">
-					email</i>
-			info@gameworld.co.uk
-		</p>
-		</article>
-		
-		
-	</div>
-	</footer>
-	</div>
-	</body>
+    </body>
 </html>

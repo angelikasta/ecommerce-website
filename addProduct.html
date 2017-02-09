@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CMS Added Product</title>
+        <link rel="stylesheet" type="text/css" href="new.css" />	
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    </head>
+    <body>
+        <div class="container">
+
+
+            <header>
+                <div id="logoimg">
+
+
+                    <img src="img/logo1.png"/>
+
+                </div>
+                <!--navigation-->
+                <nav>
+                    <div id="nav">
+                        <br>
+                        <ul>
+                            <!--staff login page !-->
+                            <li><a href="cmsindex.html">STAFF LOGIN</a></li>
+                            <!--dropdown menu  !-->
+                            <li class="dropdown">
+                                <a class="dropbtn">PRODUCTS</a>
+                                <div class="dropdown-content">
+                                    <a href="deleteProducts.html">DELETE PRODUCTS</a>
+                                    <a href="addProduct.html">ADD PRODUCTS</a>
+                                    <a href="editProducts.html">EDIT PRODUCTS</a>
+
+
+                                </div>
+                            </li>
+                            <li><a href="viewOrders.html">VIEW ORDERS</a></li>
+
+                            <li><a href="viewCustomers.html">VIEW CUSTOMERS</a></li>
+
+
+                        </ul>
+                    </div>
+                    </div>
+                </nav>
+            </header>
+            <section>
+                <div id="section" style="text-align:center;">
+                    <br>
+                    <h1 id ="h1">Add Product</h1>
+
+                    <br>
+
+                    <h2>
+
+                        <div id="form2" style="width:50%">
+
+                            <!--add product form  !-->
+
+                            <form id="productDetails" onsubmit="return false" method = "post">
+                                Product Name: <br>
+                                <input type ="text" id="nameInput" style="width:100%" required><br>
+                                Description: <br>
+                                <input type = "text" id="descriptionInput" style="width:80%" required><br>
+                                Year Of Release: <br>
+                                <input type ="number" id="yearInput" style="width:40%" required><br>
+                                Price: <br>
+                                <input type = "currency" id="priceInput" style="width:50%" required><br>
+                                <!--game categories-->
+                                Categories: <br>
+                                <input type ="checkbox" id="cat1Input" style="width:40%" required>
+                                Strategy games
+                                <br>
+                                <input type ="checkbox" id="cat2Input" style="width:40%" required>
+                                Action games
+                                <br>
+                                <input type ="checkbox" id="cat3Input" style="width:40%" required>
+                                RPG
+                                <br>
+                                <input type ="checkbox" id="cat4Input" style="width:40%" required>
+                                Fighting games
+                                <br>
+                                <input type ="checkbox" id="cat5Input" style="width:40%" required>
+                                Driving games
+                                <br>
+                                <input type ="checkbox" id="cat6Input" style="width:40%" required>
+                                Shooter games
+                                <br>
+                                <input type ="checkbox" id="cat7Input" style="width:40%" required>
+                                Childrens games
+                                <br>
+                                Tags: <br>
+                                <input type = "text" id="tagsInput" style="width:80%" required><br>
+                                Console: 
+                                <br>
+                                <select id="ConsoleInput" style="width:80%">
+                                    <option value="-1" selected></option>
+                                    <option value="xbox">Xbox</option>
+                                    <option value="ps4">PlayStation</option>
+                                </select><br>
+                                Quantity: <br>
+                                <input type ="number" id="stockInput" style="width:40%" required><br>
+                                Image URL: <br>
+                                <input type ="text" id="imageInput" style="width:80%" required><br>
+                                <input type="submit">
+
+                            </form>
+                        </div>
+
+                </div>
+
+            </section>
+
+
+        </div>
+    </body>
+</html>
