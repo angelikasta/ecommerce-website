@@ -5,6 +5,8 @@
         <link rel="stylesheet" type="text/css" href="new.css" />	
         <!--google icons !-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+        <script src="basket.js"></script>
 
     </head>
     <body>
@@ -12,7 +14,7 @@
             <div id="tophead">
                 <!--search bar form-->
                 <div id="searchBar">
-                    <form>
+                    <form action="find.php" method="get">
                         <input type="text" name="search" placeholder="SEARCH...">
                     </form>
                 </div>
@@ -36,9 +38,9 @@
                             <li class="dropdown">
                                 <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
-                                    <a href="shoptest.html">ALL GAMES</a>
-                                    <a href="#">XBOX </a>
-                                    <a href="#">PLAYSTATION </a>
+                                    <a href="shoptestMongo.php">ALL GAMES</a>
+                                    <a href="shoptestMongoXBOX.php">XBOX </a>
+                                    <a href="shoptestMongoPlay.php">PLAYSTATION </a>
 
                                 </div>
                             </li>
@@ -64,72 +66,24 @@
             <section>
                 <!--change default setting of text align to center !-->
                 <div id="section" style="text-align:center;background-color:white">
-                    <!--
-                    <h2 style="margin:0;padding:0;text-align:left;">My Cart</h2>
+                 
+                  <h2 style="margin:0;padding:00;text-align:left;">Basket</h2>
+                    
                     <div id="cart">
-                    <article>
-                        <img src="img/CALLDUTY.png"/>
-                        <p>Call Of Duty Advanced Warfare</p>
-                    </article>
-                    -->
-                    <div id="cart">
-                        <br>
-                        <h3 style="padding=0px;padding-left:10px;margin:0px;
-                            text-align:left;">
-                            My Cart</h3>
-                        <br>
-                        <!--cart table -->
-                        <table>
-                            <tr>
-                                <th>Item</th>
-                                <th>Description</th>
-                                <th>Quantity</th> 
-                                <th>Price</th>
-                                <th>Subtotal Price</th>
+                       
+                            
+                        <div id="BasketDiv">Loading                           </div>
 
-                            </tr>
-                            <tr>
-                                <td><img src="img/CALLDUTY.png"/></td>
-                                <td>Call Of Duty Advanced Warfare</td>
-                                <td>
-                                    <!--quantity of products -->
-                                    <input type='number' size='1' id='numberinput' name='mynumber' value='0' step='1' min='1' max='10' style="border:2px solid #ddd;"/>
-                                    <a href="#" style="font:10px Arial Black;color:gray"> Remove</a>
-                                </td>
-                                <td>£9.99</td>
-                                <td>£9.99</td>
-                            </tr>
-                            <tr>
-                                <td><img src="img/destiny.jpg"/></td>
-                                <td>Destiny</td>
-                                <td><input type='number' size='1' id='numberinput' name='mynumber' value='0' step='1' min='1' max='10' style="border:2px solid #ddd;"/>
-                                    <a href="#" style="font:10px Arial Black;color:gray"> Remove</a>
-                                </td>
-                                <td>£25.99</td>
-                                <td>£25.99</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                </td>
-                                <td>Total Price: </td>
-                                <td>£34.98</td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                </td>
-                                <td></td>
-                                <td><button>BUY IT NOW</button></td>
-                            </tr>
-
-                        </table>
-
+                    <script>
+                        var basket = new Basket("basket.php");
+                        basket.get();
+                    </script>
+                            
+                        
+                        
                     </div>
                 </div>
-
+                </div>
             </section>
 
             <!--footer-->
