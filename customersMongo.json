@@ -1,0 +1,27 @@
+
+{
+    "_id" : ObjectId("589477afb35b9d780101edff"),
+    "firstName" : "Riyam",
+    "lastName" : "Alsharifi",
+    "email" : "sheiman@live.com",
+    "password" : "mamamia1",
+    "contactNumber" : "07889978734",
+    "address" : "90 Crewys Road",
+    "city" : "London",
+    "postCode" : "NW2 3AD",
+    "dateOfBirth" : "05/02/1993"
+}
+
+
+{
+    "_id" : ObjectId("58aefd7b064bb4e1a4d8ab8f"),
+    "firstName" : "Angelika",
+    "lastName" : "Stachura",
+    "email" : "angelika@hotmail.com",
+    "password" : "abcd",
+    "contactNumber" : "07889067787",
+    "address" : "Flat 32 Edgware Road",
+    "city" : "London",
+    "postCode" : "NW7 9DE",
+    "dateOfBirth" : "02/12/1989"
+}

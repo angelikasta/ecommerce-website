@@ -1,0 +1,194 @@
+
+{
+    "_id" : ObjectId("589481ebb35b9d780101ee01"),
+    "title" : "Call Of Duty Advanced Warfare",
+    "description" : "Call of Duty: Advanced Warfare envisions the powerful battlegrounds of the future, where both technology and tactic have evolved to usher in a new era of combat for the franchise. Power changes everything.",
+    "year" : 2014.0,
+    "price" : 9.99,
+    "category" : [ 
+        "Action games", 
+        "Shooter games"
+    ],
+    "tags" : [ 
+        "Call Of Duty", 
+        "Advanced Warfare", 
+        "Action", 
+        "Shooter", 
+        "XBOX", 
+        "COD"
+    ],
+    "console" : "XBOX",
+    "quantity" : 30.0,
+    "image_url" : "CALLDUTY.png"
+}
+
+
+{
+    "_id" : ObjectId("589485ccb35b9d780101ee03"),
+    "title" : "Destiny",
+    "description" : "Delve into the Destiny universe and become legend as you carve out your own legendary story in the battle for mankind.Destiny is a shooter at heart and combines action and adventure gameplay to create a new evolution in storytelling, gaming and entertainment.",
+    "year" : 2014.0,
+    "price" : 25.99,
+    "category" : [ 
+        "Action games", 
+        "Shooter games"
+    ],
+    "tags" : [ 
+        "Destiny", 
+        "Playstation", 
+        "Action", 
+        "Shooter", 
+        "RPG"
+    ],
+    "console" : "Playstation",
+    "quantity" : 12.0,
+    "image_url" : "img/destiny.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b047579bbcdf8770d7f3be"),
+    "title" : "Diablo III Reaper Of Souls",
+    "description" : "first expansion pack for the action role-playing video game Diablo III.",
+    "year" : 2014.0,
+    "price" : 19.99,
+    "category" : [ 
+        "Action games", 
+        "Strategy games"
+    ],
+    "tags" : [ 
+        "Diablo", 
+        "Reaper Of Souls", 
+        "Playstation", 
+        "Action", 
+        "Strategy", 
+        "RPG"
+    ],
+    "console" : "Playstation",
+    "quantity" : 20.0,
+    "image_url" : "img/diablo.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b048759bbcdf8770d7f3bf"),
+    "title" : "Halo 4",
+    "description" : "Halo 4 is a first-person shooter video game developed by 343 Industries.",
+    "year" : 2012.0,
+    "price" : 19.99,
+    "category" : [ 
+        "Action games", 
+        "Shooter games", 
+        "RPG"
+    ],
+    "tags" : [ 
+        "Halo", 
+        "4", 
+        "Action", 
+        "Shooter", 
+        "RPG", 
+        "XBOX"
+    ],
+    "console" : "XBOX",
+    "quantity" : 20.0,
+    "image_url" : "img/HALO.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b080729bbcdf8770d7f3c0"),
+    "title" : "Lego Marvel Superheroes",
+    "description" : "Lego themed action-adventure game publishes by Warner Bros.",
+    "year" : 2013.0,
+    "price" : 9.99,
+    "category" : [ 
+        "Children games", 
+        "Strategy games"
+    ],
+    "tags" : [ 
+        "Lego", 
+        "Marvel", 
+        "Heroes", 
+        "Kids", 
+        "Strategy", 
+        "Children", 
+        "Playstation"
+    ],
+    "console" : "Playstation",
+    "quantity" : 10.0,
+    "image_url" : "img/marvels.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b081dc9bbcdf8770d7f3c1"),
+    "title" : "Lego Jurassic World",
+    "description" : "Lego themed action-adventure video game published by Warner Bros.",
+    "year" : 2015.0,
+    "price" : 22.99,
+    "category" : [ 
+        "Children games", 
+        "Strategy games"
+    ],
+    "tags" : [ 
+        "Lego", 
+        "Jurassic", 
+        "World", 
+        "Kids", 
+        "Children", 
+        "Strategy", 
+        "Simulation"
+    ],
+    "console" : "XBOX",
+    "quantity" : 15.0,
+    "image_url" : "img/legojurassic.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b082f29bbcdf8770d7f3c2"),
+    "title" : "Fifa 16 Deluxe Editon",
+    "description" : "Fifa 16 Deluxe Editon is an association football simulation game developed by EA Canada.",
+    "year" : 2015.0,
+    "price" : 29.99,
+    "category" : [ 
+        "Simulation games", 
+        "Sports games"
+    ],
+    "tags" : [ 
+        "Fifa", 
+        "Deluxe", 
+        "Sports", 
+        "football", 
+        "XBOX", 
+        "simulation", 
+        "sport"
+    ],
+    "console" : "XBOX",
+    "quantity" : 30.0,
+    "image_url" : "img/fifa16.jpg"
+}
+
+
+{
+    "_id" : ObjectId("58b19efa5512203407470417"),
+    "title" : "NBA 2K15",
+    "description" : "NBA 2K15 is a basketball simulation video game developed by Visual Concepts and published by 2K Sports.",
+    "year" : 2014.0,
+    "price" : 12.99,
+    "category" : [ 
+        "Simulation games", 
+        "Sports games"
+    ],
+    "tags" : [ 
+        "NBA", 
+        "2K15", 
+        "basketball", 
+        "simulation", 
+        "sports", 
+        "XBOX"
+    ],
+    "console" : "XBOX",
+    "quantity" : 0,
+    "image_url" : "img/nbax.jpg"
+}

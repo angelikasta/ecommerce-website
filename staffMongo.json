@@ -1,0 +1,29 @@
+
+{
+    "_id" : ObjectId("589cd272b35b9d780101ee09"),
+    "firstName" : "Bob",
+    "lastName" : "Builder",
+    "email" : "bob@gamesworld.com",
+    "password" : "newpassword1",
+    "contactNumber" : "0785906432",
+    "address" : "3 Garden Square",
+    "city" : "London",
+    "postCode" : "E11 5GE",
+    "position" : "Sales Manager",
+    "dateOfBirth" : "23/08/1986"
+}
+
+
+{
+    "_id" : ObjectId("589cd319b35b9d780101ee0a"),
+    "firstName" : "Aga",
+    "lastName" : "Sta",
+    "email" : "aga@gamesworld.com",
+    "password" : "abcdef1",
+    "contactNumber" : "07766906432",
+    "address" : "32 Newman Road",
+    "city" : "London",
+    "postCode" : "NW1 6TE",
+    "position" : "Administrator",
+    "dateOfBirth" : "03/09/1988"
+}
