@@ -7,6 +7,7 @@ session_start();
 $mongoClient = new MongoClient();
 $db = $mongoClient->gameShop;
 
+
 //Create a basket document if we do not have one
 if( !array_key_exists("basket_id", $_SESSION) ){
     //Add an empty basket 
@@ -51,11 +52,6 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     //Add ID field to basket array
     $basketPHPArray['_id'] = new MongoId($_SESSION['basket_id']);
 
-    //#FIXME# CHECK THAT PRODUCTS ARE IN STOCK!
-
-    //#FIXME# MERGE QUANTITIES OF PRODUCTS WITH THE SAME ID
-
-    //#FIXME# MOVE REQUIRED NUMBER OF GOODS FROM PRODUCTS COLLECTION TO BASKET COLLECTION
 
     //Save the product in the database - it will overwrite the data for the basket with this ID
     $returnVal = $db->baskets->save($basketPHPArray);
@@ -68,7 +64,9 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
 }
 else{
     throw new Exception("Request method not recognized.");
-}
+};
+
+
 
 //Close connection to server
 $mongoClient->close();

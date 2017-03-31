@@ -48,9 +48,10 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                    <a href="login.html">LOGIN </a>
-                                    <a href="register.html">REGISTER </a>
-                                    <a href="myinfo.html">MY INFO</a>
+                                <a href="loginAjax.php">LOGIN </a>
+                                    <a href="register.php">REGISTER </a>
+                                    <a href="update.php"> UPDATE MY INFO</a>
+                                    <a href="lastorders.php"> MY ORDERS</a>
                             </li>
                             <!--google shop cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
@@ -72,6 +73,13 @@
                         <br>
                         <h2>XBOX GAMES</h2>
                         <hr>
+                    <!--    <form style="width:20%; text-align:right;" action="sort.php" method="get">
+  <select name="selector">
+    <option value="lowpriceXBOX">Low to High Price</option>
+    <option value="highpriceXBOX">High to Low Price</option>
+  </select>
+  <input type="submit" style="width:20%;font-size:9px; padding:5px;margin:2px;">
+</form> -->
                         
                         <?php
                         
@@ -80,19 +88,27 @@
                         
                         
                         $products = $db->products->find();
-                        
-                        
-                        
-                        if($products->count() > 0){
-                        
-                         
+ 
+                         //display all items matching the criteria
                         foreach ($products as $document) {
                             if ($document["console"]=="XBOX"){
+                          if($document["quantity"]>=1){
+                             //check if the item is in stock and display all
                            echo '<article class="article">';
                             echo '<img src='  . $document["image_url"] . ">";
                             echo'<p>' . $document["title"] . "</p>";
                             echo'<p>' . $document["price"] . "</p>";
                              echo '<td><button onclick=\'basket.add("' . $document["_id"] . '", "' . $document["title"] . '", 1,' . $document["price"] . ')\'>ADD TO CART</button>';
+                            echo '</article>';
+                                              }
+                            else {
+                                //display items currently out of stock
+                                echo '<article class="article">';
+                            echo '<img src='  . $document["image_url"] . ">";
+                            echo'<p>' . $document["title"] . "</p>";
+                            echo'<p>' . $document["price"] . "</p>";
+                                //change the appearance of the button for items out of stock
+                             echo '<td><button style="background:black; border:black;">OUT OF STOCK</button>';
                             echo '</article>';
                                               }
                         }

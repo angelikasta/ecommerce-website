@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GameWorld - About Us</title>
+        <title>GameWorld - Login</title>
         <link rel="stylesheet" type="text/css" href="new.css" />
-
         <!--google icons !-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
@@ -25,18 +24,21 @@
                         <img src="img/logo1.png"/>
                     </a>
                 </div>
-                <!--navigation!-->
+
                 <nav>
+                    <!--navigation-->
                     <div id="nav">
                         <ul>
                             <li><a href="test.html">HOME</a></li>
                             <!--dropdown menu !-->
                             <li class="dropdown">
-                                <a class="dropbtn">SHOP BY CONSOLE</a>
+                                <div class="dropdown-content">
+                                    <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
                                     <a href="shoptestMongo.php">ALL GAMES</a>
                                     <a href="shoptestMongoXBOX.php">XBOX </a>
                                     <a href="shoptestMongoPlay.php">PLAYSTATION </a>
+
                                 </div>
                             </li>
                             <li><a href="about.html">ABOUT US</a></li>
@@ -44,124 +46,118 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                   <a href="loginAjax.php">LOGIN </a>
-                                    <a href="register.php">REGISTER </a>
-                                    <a href="update.php"> UPDATE MY INFO</a>
-                                    <a href="lastorders.php"> MY ORDERS</a>
+                                    <a href="login.html">LOGIN </a>
+                                    <a href="register.html">REGISTER </a>
+                                    <a href="myinfo.html">MY INFO</a>
                             </li>
-                            <!--google shopping cart menu !-->
+                            <!--google shopping cart icon !-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
+
+
                         </ul>
                     </div>
                     </div>
                 </nav>
             </header>
             <section>
-                <!--change default setting of text align to center !-->
-                <div id="section" style="text-align:center;">
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
-                            star</i>
-                        100% CUSTOMER SATISFACTION!
-                    </h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04;font-size:28px;">
-                            local_shipping</i>
-                        100% FREE UK DELIVERY!
-
-                    </h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
-                            check_box</i>
-                        100% FREE RETURNS!
-
-                    </h3>
-                    <!--change default appearance of h4  !-->
-
-                    <!--About Us text !-->
-                    <h4 style="text-align:center;
-                        padding-left:50px;padding-right:50px;">
-                        Game World is a high quality retailer of games. We are committed to providing 
-                        the latest and greatest titles and personal customer service powered by 
-                        our principles of highly competitive pricing, 
-                        fast and effective service, and a genuine love for gaming.
-                        Our relationships with distributors and publishers allow us to be a market 
-                        leading specialist in getting the right games to you at the best possible prices.
-
-                    </h4>
-
+                <!--change default setting for text align to center !-->
+                <div id="section" style="text-align:center; background-color:white">
                     <br>
+                    <h1 id ="h1">Login</h1>
+                    <br>
+                    <h2>
+                        <!-- login form !-->
+                        <div id="form2" style="width:50%"><form action="login.php" method="post">
+            Email: <input type="email" name="email" required>
+            Password: <input type="password" name="password" required>
+            <input type="submit">
+        </form>
+                        </div>
+                        
+                        <?php
+    //Start session management
+    session_start();
 
-                    <h3 style="color:white;">CONTACT US</h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            email</i>
-                        info@gameworld.co.uk
+    //Get name and address strings - need to filter input to reduce chances of SQL injection etc.
+    $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);    
 
-                    </h3>	
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04;font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            call</i>
-                        0208-123-456
+    //Connect to MongoDB and select database
+    $mongoClient = new MongoClient();
+    $db = $mongoClient->gameShop;
+   $collection = $db->customers;
 
-                    </h3>
+    //Create a PHP array with our search criteria
+    $findCriteria = [
+        "email" => $email, 
+     ];
 
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            room</i>
-                        Game World , 1234 Example Road,
-                        <br>
-                        London N4 89GR 
+    //Find all of the customers that match  this criteria
+    $cursor = $db->customers->find($findCriteria);
 
-                    </h3>
+    //Check that there is exactly one customer
+    if($cursor->count() == 0){
+        echo 'Email not recognized.';
+        return;
+    }
+    else if($cursor->count() > 1){
+        echo 'Database error: Multiple customers have same email address.';
+        return;
+    }
+   
+    //Get customer
+    $customer = $cursor->getNext();
+    
+    //Check password
+    if($customer['password'] != $password){
+        echo 'Password incorrect.';
+        return;
+    }
+        
+    //Start session for this user
+    $_SESSION['loggedInUserEmail'] = $email;
+    
+    //Inform web page that login is successful
+    echo 'ok customer logged in,';
+    
+    //Close the connection
+    $mongoClient->close();
+                        
+                        ?>
+                        
+                        
+                        
+                        
+                        
                 </div>
 
             </section>
-
+                
 
 
             <!--Footer -->
             <footer>
                 <div id="footer">
-
                     <article>
                         <h4>INFORMATION </h4>
 
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 star</i>
                             100% CUSTOMER SATISFACTION!
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 local_shipping</i>
                             100% FREE DELIVERY!
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 check_box</i>
@@ -177,7 +173,7 @@
                     <article>
                         <h4>ABOUT US </h4>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 room</i>
@@ -186,7 +182,7 @@
                             London N4 89GR 
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 call</i>
@@ -200,10 +196,10 @@
                             info@gameworld.co.uk
                         </p>
                     </article>
-
-
                 </div>
             </footer>
         </div>
     </body>
 </html>
+
+ 

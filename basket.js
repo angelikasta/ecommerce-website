@@ -9,12 +9,14 @@ function Basket(serverBasketPage){
 
 
 //Adds product to basket
-Basket.prototype.add = function(productID, productName, quantity, price){
+Basket.prototype.add = function(productID, productTitle, quantity, price){
     
-    this.productArray.push({name: productName, id: productID, quantity: quantity, price: price});
+    this.productArray.push({title: productTitle, id: productID, quantity: quantity, price: price});
     this.send();
     this.loadBasket();
+    
 };
+
 
 
 //Removes product from basket
@@ -87,9 +89,10 @@ Basket.prototype.loadBasket = function(){
     //Build HTML string
     var totalPrice = 0;
     
-    var htmlStr = "<form action='checkout.html' method='post'><table><tr><th>Item</th><th>Quantity</th> <th>Price</th><th>Remove</th></tr>";
+    var htmlStr = "<form action='checkout.php' method='post'><table><tr><th>Item</th><th>Quantity</th> <th>Price</th><th>Remove</th></tr>";
+    
     for(var i=0; i<this.productArray.length; ++i){
-        htmlStr += '<tr><th>'+ this.productArray[i].name + " </th><th>" + this.productArray[i].quantity + "</th><th>" + this.productArray[i].price + "</th>";
+        htmlStr += '<tr><th>'+ this.productArray[i].title + " </th><th>" + this.productArray[i].quantity + "</th><th>" + this.productArray[i].price + "</th>";
         htmlStr += "<th> <button onclick='basket.remove(" + i + ")'>Remove</button> </th></tr>";
         totalPrice += this.productArray[i].price;
     }
@@ -105,7 +108,6 @@ Basket.prototype.loadBasket = function(){
     
     //Add HTML to page
     document.getElementById("BasketDiv").innerHTML = htmlStr;
+    
+
 };
-
-
-

@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title> CMS View Customers </title>
-        <link rel="stylesheet" type="text/css" href="new.css" />
-        <!--google icons !-->
+        <title>CMS Added Product</title>
+        <link rel="stylesheet" type="text/css" href="new.css" />	
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
-    </head>
-    <body>
+    </head>"
+    <body style="background-color:white">
         <div class="container">
 
 
@@ -37,36 +36,48 @@
 
                                 </div>
                             </li>
-                            <li><a href="viewOrders.html">VIEW ORDERS</a></li>
-
-                            <li><a href="viewCustomers.html">VIEW CUSTOMERS</a></li>
+                            <li><a href="viewOrders.php">VIEW ORDERS</a></li>
 
 
                         </ul>
                     </div>
-                    </div>
                 </nav>
             </header>
             <section>
-                <div id="section" style="text-align:center;">
-                    <br>
-                    <h1 id ="h1">Search Customers</h1>
+                <div id="section" style="text-align:center;background-color:white;">
+                
+                    <br>       
+<?php
 
-                    <br>
-                    <!--search customers form  !-->
-                    <form>
-                        <input type="text" name="search" placeholder="SEARCH CUSTOMERS..."
-                               style="width:70%;">
-                    </form>
+//connect to database
+$mongoClient = new MongoClient();
 
+//Select a database
+$db = $mongoClient->gameShop;
+$collection = $db->products;
 
+ $products = $db->products->find();
+                    echo '<h3> All Products </h3><hr>';
+                    
+                    foreach ($products as $product){
+                    echo '<article class="article">';
+                            echo '<img src='  . $product["image_url"] . ">";
+                            echo'<p>' . $product["title"] . "</p>";
+                            echo'<p>' . $product["_id"] . "</p>";
+                            echo'<p>' . $product["year"] . "</p>";
+                            echo'<p>' . $product["price"] . "</p>";
+                            echo'<p>' . $product["console"] . "</p>";
+                            
+                            echo '</article>';
+                    }
+
+                
+
+//close the connection
+$mongoClient->close();
+?>
                 </div>
-
-
+            </section>
         </div>
-
-    </section>
-
-</div>
-</body>
+    </body>
 </html>

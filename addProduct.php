@@ -19,35 +19,28 @@
                 </div>
                 <!--navigation-->
                 <nav>
-                      <div id="nav">
+                    <div id="nav">
                         <br>
                         <ul>
                             <!--staff login page !-->
                             <li><a href="cmsindex.html">STAFF LOGIN</a></li>
                             <!--dropdown menu  !-->
                             <li class="dropdown">
-                                <a class="dropbtn" >PRODUCTS</a>
+                                <a class="dropbtn">PRODUCTS</a>
                                 <div class="dropdown-content">
-                                    <a href="viewProducts.php">VIEW ALL PRODUCTS</a>
-                                    <a href="deleteProducts.php">DELETE PRODUCTS</a>
+                                    <a href="deleteProducts.html">DELETE PRODUCTS</a>
                                     <a href="addProduct.html">ADD PRODUCTS</a>
-                                    <a href="editProducts.php">EDIT PRODUCTS</a>
+                                    <a href="editProducts.html">EDIT PRODUCTS</a>
 
 
                                 </div>
                             </li>
-                            <li class="dropdown">
-                                <a class="dropbtn" >ORDERS</a>
-                                <div class="dropdown-content">
-                            <a href="viewOrders.php">VIEW ORDERS</a>
-                            <a href="editOrders.php">EDIT ORDERS</a>
-                            <a href="deleteOrders.php">DELETE ORDERS</a>
-                                    
-                                </div>
+                            <li><a href="viewOrders.html">VIEW ORDERS</a></li>
+
+                            <li><a href="viewCustomers.html">VIEW CUSTOMERS</a></li>
 
 
                         </ul>
-                    
                     </div>
                 </nav>
             </header>
@@ -55,7 +48,7 @@
                 <div id="section" style="text-align:center;background-color:white;">
                     <br>
                     <h1 id ="h1">Add Product</h1>
-                    <hr>
+
                     <br>
 
 
@@ -115,7 +108,7 @@
                                     <option value="PS4">PlayStation</option>
                                 </select><br>
                                 Quantity: <br>
-                                <input type="number" name ="quantity" style="width:40%" required><br>
+                                <input type ="number" id="quantity" name = "quantity" style="width:40%" required><br>
                                 Image URL: <br>
                                 <input type ="text" id="image_url" name="image_url" style="width:80%" required><br>
                                 <input type="submit" value="ADD PRODUCT">

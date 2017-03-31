@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GameWorld - About Us</title>
+        <title>GameWorld - Login</title>
         <link rel="stylesheet" type="text/css" href="new.css" />
-
         <!--google icons !-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
@@ -25,10 +24,12 @@
                         <img src="img/logo1.png"/>
                     </a>
                 </div>
-                <!--navigation!-->
+
                 <nav>
-                    <div id="nav">
+                    <!--navigation-->
+                                       <div id="nav">
                         <ul>
+
                             <li><a href="test.html">HOME</a></li>
                             <!--dropdown menu !-->
                             <li class="dropdown">
@@ -37,131 +38,146 @@
                                     <a href="shoptestMongo.php">ALL GAMES</a>
                                     <a href="shoptestMongoXBOX.php">XBOX </a>
                                     <a href="shoptestMongoPlay.php">PLAYSTATION </a>
+
                                 </div>
                             </li>
                             <li><a href="about.html">ABOUT US</a></li>
-                            <!--dropdown menu !-->
+                            <!--dropdown menu-->
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                   <a href="loginAjax.php">LOGIN </a>
+                                 <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
                             </li>
-                            <!--google shopping cart menu !-->
+                            <!--google shop cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
+
                         </ul>
-                    </div>
+
                     </div>
                 </nav>
             </header>
             <section>
-                <!--change default setting of text align to center !-->
-                <div id="section" style="text-align:center;">
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
-                            star</i>
-                        100% CUSTOMER SATISFACTION!
-                    </h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04;font-size:28px;">
-                            local_shipping</i>
-                        100% FREE UK DELIVERY!
-
-                    </h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:left;display:inline-block;padding:10px;color:white;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
-                            check_box</i>
-                        100% FREE RETURNS!
-
-                    </h3>
-                    <!--change default appearance of h4  !-->
-
-                    <!--About Us text !-->
-                    <h4 style="text-align:center;
-                        padding-left:50px;padding-right:50px;">
-                        Game World is a high quality retailer of games. We are committed to providing 
-                        the latest and greatest titles and personal customer service powered by 
-                        our principles of highly competitive pricing, 
-                        fast and effective service, and a genuine love for gaming.
-                        Our relationships with distributors and publishers allow us to be a market 
-                        leading specialist in getting the right games to you at the best possible prices.
-
-                    </h4>
-
+                <!--change default setting for text align to center !-->
+                <div id="section" style="text-align:center;background-color:white;">
                     <br>
+                    <h1 id ="h1">Login</h1>
+                    <hr style="width:50%;">
+                    <br>
+                    <div id="form2" style="width:50%">
+                      <p id="LoginPara">
+                          
+            Email: <input type="text" id="email">
+            Password: <input type="password" id="password">
+            <button onclick="login()">Submit</button>
+        </p>
+                        
+        <p style="color:white" id="ErrorMessages"></p>
+                    </div>
+        <script>
+            //Global variables 
+            var loggedInStr = "<p> Customer Logged In </p> <button onclick='logout()'>Logout</button>";
+            var loginStr = document.getElementById("LoginPara").innerHTML;
+            var request = new XMLHttpRequest();
+            
+            //Check login when page loads
+            window.onload = checkLogin;
+            
+            //Checks whether user is logged in.
+            function checkLogin(){
+                //Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    if(request.responseText === "Customer Logged In"){
+                        document.getElementById("LoginPara").innerHTML = loggedInStr;
+                    }
+                    else{
+                        console.log(request.responseText);
+                        document.getElementById("LoginPara").innerHTML  = loginStr;
+                    }
+                };
+                //Set up and send request
+                request.open("GET", "check_login.php");
+                request.send();
+            }
+            
+            //Attempts to log in user to server
+            function login(){
+                //Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    //Check HTTP status code
+                    if(request.status === 200){
+                        //Get data from server
+                        var responseData = request.responseText;
 
-                    <h3 style="color:white;">CONTACT US</h3>
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            email</i>
-                        info@gameworld.co.uk
+                        //Add data to page
+                        if(responseData === "ok"){
+                            document.getElementById("LoginPara").innerHTML = loggedInStr;
+                            document.getElementById("ErrorMessages").innerHTML = "";//Clear error messages
+                        }
+                        else
+                            document.getElementById("ErrorMessages").innerHTML = request.responseText;
+                    }
+                    else
+                        document.getElementById("ErrorMessages").innerHTML = "Error communicating with server";
+                };
 
-                    </h3>	
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04;font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            call</i>
-                        0208-123-456
-
-                    </h3>
-
-                    <!--change default appearance of h3  !-->
-                    <h3 style="text-align:center;display:block;padding:10px;
-                        font: 16px Arial Black;">
-                        <!--google icon!-->
-                        <i class="material-icons" style="color:#4eab04; font-size:28px;
-                           padding:0px 10px 0px 10px;">
-                            room</i>
-                        Game World , 1234 Example Road,
-                        <br>
-                        London N4 89GR 
-
-                    </h3>
+                //Extract login data
+                var usrEmail = document.getElementById("email").value;
+                var usrPassword = document.getElementById("password").value;
+                
+                //Set up and send request
+                request.open("POST", "customer_login.php");
+                request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+                request.send("email=" + usrEmail + "&password=" + usrPassword);
+            }
+            
+            //Logs the user out.
+            function logout(){
+                //Create event handler that specifies what should happen when server responds
+                request.onload = function(){
+                    checkLogin();
+                };
+                //Set up and send request
+                request.open("GET", "logout.php");
+                request.send();
+            }
+            
+            
+        </script>    
+                        
+                        
+                        
                 </div>
 
             </section>
-
+                
 
 
             <!--Footer -->
             <footer>
                 <div id="footer">
-
                     <article>
                         <h4>INFORMATION </h4>
 
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 star</i>
                             100% CUSTOMER SATISFACTION!
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 local_shipping</i>
                             100% FREE DELIVERY!
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 check_box</i>
@@ -177,7 +193,7 @@
                     <article>
                         <h4>ABOUT US </h4>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 room</i>
@@ -186,7 +202,7 @@
                             London N4 89GR 
                         </p>
                         <p>
-                            <!--google icon -->
+                            <!--google icon-->
                             <i class="material-icons" style="color:#4eab04; font-size:16px;
                                padding:0px 3px 0px 3px;">
                                 call</i>
@@ -200,10 +216,10 @@
                             info@gameworld.co.uk
                         </p>
                     </article>
-
-
                 </div>
             </footer>
         </div>
     </body>
 </html>
+
+ 

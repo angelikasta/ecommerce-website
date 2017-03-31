@@ -50,7 +50,8 @@
                                 <div class="dropdown-content">
                                     <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
-                                    <a href="myinfo.html">MY INFO</a>
+                                    <a href="update.php"> UPDATE MY INFO</a>
+                                    <a href="lastorders.php"> MY ORDERS</a>
                             </li>
                             <!--google shopping cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
@@ -61,55 +62,67 @@
                 </nav>
             </header>
             <section>
-                <div id="section" style="text-align:center;">
-                    <!--side navigation !-->
-                    <div id="sidenav">
-                        <ul>
-                            <div class="sidecontentcat">
-                                <h3>MY DETAILS</h3>
-
-                            </div>
-                            <li class="sidecontent">
-                                <!--further pages to be added !-->
-                                <a href="#">MY ORDERS</a><br>
-                                <a href="#">CHANGE MY DETAILS</a><br>
-                            </li>
-                            <br>
-
-                            <div class="sidecontentcat">
-                                <h3>MY RECOMMENDATIONS</h3>
-                            </div>
-                            <!--changed to dynamically added instead of hard coded later !-->
-                            <article class="article" style="border:none;padding-left:0px;
-                                     margin:0px;width:250px;">
-                                <img src="img/CALLDUTY.png"/>
-
-                                <p>Call Of Duty Advanced Warfare</p>
-                                <button>ADD TO CART</button>
-                            </article>
-
-                            <article class="article" style="border:none;padding-left:0px;
-                                     margin:0px;width:250px;">
-                                <img src="img/HALO.jpg"/>
-
-                                <p>Halo 4</p>
-
-                                <button>ADD TO CART</button>
-                            </article>
-
-                        </article><article class="article" style="border:none;padding-left:0px;
-                                           margin:0px;width:250px;">
-                        <img src="img/diablo.jpg"/>
-
-                        <p>Diablo III Reaper Of Souls</p>
-
-                        <button>ADD TO CART</button>
-                    </article>
-
-                </ul>
-
-            </div>
-
+                <div id="section" style="text-align:center;background-color:white;">
+      
+                <h2 style="margin:0;padding:00;text-align:left;">My Account Info</h2>
+                    
+                    
+                   <?php 
+                  
+                    session_start();
+              
+                   if( array_key_exists("customer_id", $_SESSION) ){
+         
+                    $customer = $_SESSION['customer_id'];
+                    
+                    $mongoClient = new MongoClient();
+                    
+                        $db = $mongoClient->gameShop;
+                    
+                
+                        
+                       
+                        $newOrderCus = $db->customers->update( array('_id' => new MongoId($customer)), array('$set' => array("lastorder" => [])));
+                        
+                       $newOrderCus2 = $db->customers->update( array('_id' => new MongoId($customer)), array('$set' => array("searches" => [])));
+                       
+                       $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
+                       
+                       
+                    
+                    echo '<h3> Update details </h3>
+                    <hr style="width:50%;">';
+                    
+                    echo "<br>";
+                  
+                        echo '<div id="form2"><form action="save_customer.php" method="post">';
+    echo 'First name: <input type="text" name="firstname" value="' . $cust['firstname'] . '" required><br>';
+    echo 'Last name: <input type="text" name="lastname" value="' . $cust['lastname'] . '" required><br>';
+    echo 'Email: <input type="text" name="email" value="' . $cust['email'] . '" required><br>';
+    echo 'Password: <input type="password" name="password" value="' . $cust['password'] . '" required><br>'; 
+    echo 'Phone number: <input type="text" name="phonenumber" value="' . $cust['phonenumber'] . '" required><br>';
+    echo 'Address: <input type="text" name="address" value="' . $cust['address'] . '" required><br>';
+    echo 'City: <input type="text" name="city" value="' . $cust['city'] . '" required><br>';
+    echo 'Post code: <input type="text" name="postcode" value="' . $cust['postcode'] . '" required><br>';
+    echo 'Date of birth <input type="date" name="dateofbirth" value="' . $cust['dateofbirth'] . '" required>'; 
+                       
+                       
+                    //add array of products??
+                       
+    echo '<input type="hidden" name="lastorder" value=" ">';
+    echo '<input type="hidden" name="searches" value=" ">';
+    echo '<input type="hidden" name="id" value="' . $cust['_id'] . '" required>'; 
+    echo '<input type="submit">';
+    echo '</form><br></div><br>';
+                   }
+                    else {
+                        
+                        echo "<p> Please log in to change your details first </p>";
+                    }
+                    
+                    ?>
+                    
+                    <br>
         </div>
 
     </section>

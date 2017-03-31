@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>GameWorld - Cart</title>
+        <title>GameWorld - Checkout</title>
         <link rel="stylesheet" type="text/css" href="new.css" />	
         <!--google icons !-->
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
@@ -9,7 +9,7 @@
         <script src="basket.js"></script>
 
     </head>
-    <body>
+    <body style="background:white;">
         <div class="container">
             <div id="tophead">
                 <!--search bar form-->
@@ -49,9 +49,10 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                    <a href="login.html">LOGIN </a>
-                                    <a href="register.html">REGISTER </a>
-                                    <a href="myinfo.html">MY INFO</a>
+                                <a href="loginAjax.php">LOGIN </a>
+                                    <a href="register.php">REGISTER </a>
+                                    <a href="update.php"> UPDATE MY INFO</a>
+                                    <a href="lastorders.php"> MY ORDERS</a>
                             </li>
                             <!--google shopping cart icon !-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
@@ -67,14 +68,115 @@
                 <!--change default setting of text align to center !-->
                 <div id="section" style="text-align:center;background-color:white">
             <h2 style="margin:0;padding:00;text-align:left;">Checkout</h2>
-                  
-                            
-               
+                    
+                    <h3>Order confirmed</h3>
+                    
+                    <hr style="width:50%;">
+                    
+                  <?php 
+                    
+                    
+                    session_start();
+                    
+              //      if( array_key_exists("customer_id", $_SESSION) ){
+     //   echo 'Session in progress. customer id=' . $_SESSION["customer_id"];
+  //  }
+    //else{
+      //  echo 'Session not started';
+   // }
+                    
+                    $basket_id = $_SESSION['basket_id'];
+                    
+                 
+                    $customer = $_SESSION['customer_id'];
+                    
+                    
+                    
+                    
+                    $mongoClient = new MongoClient();
+                        $db = $mongoClient->gameShop;
+                    
+                        $prod = $db->baskets->findOne(['_id' => new MongoId($basket_id)]);
+                
+                    
+                        $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
+                    
+                    
+                    echo '<h4> Products ordered: </h4>
+                    <hr style="width:20%;">';
+                   
+                    $totalPrice = 0;
+                    
+                    foreach ($prod["products"] as $product) {       
+                             
+                    //changes quantity of products -1 in products collection
+                        $newProducts = $db->products->update( array('_id' => new MongoId($product['id'])),
+                         array('$inc' => array("quantity" => -1)));
                         
-                        
+                         echo '<p>' . $product["title"] . " " . $product["price"] . "</p>";
+                        $totalPrice += $product["price"];
+                    }
+                    
+                   
+                    echo '<p> Total price is: '. $totalPrice . "</p>";
+                    
+                    echo "<br>";
+                    
+                    echo '<p> Your details:  </p> <hr style="width:20%;">';
+                    
+                 echo '<p>' . $cust["firstname"] . " " .  $cust["lastname"] . "</p>";
+                echo '<p>' . $cust["address"] . "</p>";
+                echo '<p>' . $cust["city"] . "</p>";
+                echo '<p>' . $cust["postcode"] . "</p>";
+                   // }
+                                    
+                    
+                //unset($stuff['_id']);    
+                
+                   $newOrder = $db->orders->insert([$cust, $prod]);
+                    
+                    
+                    $newOrderCus = $db->customers->update( array('_id' => new MongoId($customer)), array('$set' => array("lastorder" => $prod)));
+                    
+              
+                    
+
+?>        
+                    <h3 style="text-align:left;display:inline-block;padding:10px;">
+                        <!--google icon!-->
+                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
+                            star</i>
+                        100% CUSTOMER SATISFACTION!
+                    </h3>
+                    <!--change default appearance of h3  !-->
+                    <h3 style="text-align:left;display:inline-block;padding:10px;">
+                        <!--google icon!-->
+                        <i class="material-icons" style="color:#4eab04;font-size:28px;">
+                            local_shipping</i>
+                        100% FREE UK DELIVERY!
+
+                    </h3>
+                    <!--change default appearance of h3  !-->
+                    <h3 style="text-align:left;display:inline-block;padding:10px;">
+                        <!--google icon!-->
+                        <i class="material-icons" style="color:#4eab04; font-size:28px;">
+                            check_box</i>
+                        100% FREE RETURNS!
+
+                    </h3>
+                    
+                    
                     </div>
-                </div>
-                </div>
+                     <h2 style="visibility: hidden;">Basket</h2>
+                    <div id="BasketDiv" style="visibility: hidden;">Loading</div>
+                    <script>
+                        var basket = new Basket("basket.php");
+                        basket.get();
+                    </script>
+        
+               
+         
+            
             </section>
 
             <!--footer-->
@@ -140,6 +242,6 @@
 
                 </div>
             </footer>
-        </div>
+        
     </body>
 </html>

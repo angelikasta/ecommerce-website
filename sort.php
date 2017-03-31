@@ -1,18 +1,19 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
     <head>
         <title>GameWorld - Shop </title>
         <link rel="stylesheet" type="text/css" href="new.css" />
         <!--google icons !-->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">		
-
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        <link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32" />
+        <script src="basket.js"></script>
     </head>
     <body>
         <div class="container" style="background-color:white">
             <div id="tophead">
                 <!--search bar form-->
                 <div id="searchBar">
-                    <form>
+                    <form action="find.php" method="get">
                         <input type="text" name="search" placeholder="SEARCH...">
                     </form>
                 </div>
@@ -45,7 +46,7 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                   <a href="loginAjax.php">LOGIN </a>
+                                 <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
@@ -64,123 +65,71 @@
             <section>
                 <!--change default section colour to white !-->
                 <div id="section" style="background-color:white">
-                    <!--side navigation !-->
-                    <div id="sidenav">
-                        <ul>
-                            <div class="sidecontentcat">
-                                <h3>GENRE</h3>
-
-                            </div>
-                            <!--side bar content-->
-                            <li class="sidecontent">
-                                <a href="#">STRATEGY GAMES </a><br>
-                                <a href="#">ACTION & ADVENTURE  </a><br>
-                                <a href="#">RPG </a><br>
-                                <a href="#">FIGHTING GAMES </a><br>
-                                <a href="#">DRIVING & RACING</a><br>
-                                <a href="#">SHOOTER</a><br>
-                                <a href="#">CHILDREN'S</a><br>
-                            </li>
-                            <!--
-                            <!--age rating side nav, might be implemented
-                            <br>
-
-                            <div class="sidecontentcat">
-                                <h3>AGE RATING</h3>
-
-                            </div>
-                            <li class="sidecontent">
-                                <a href="#">U</a><br>
-                                <a href="#">PG</a><br>
-                                <a href="#">AGE 11+ </a><br>
-                                <a href="#">AGE 12+ </a><br>
-                                <a href="#">AGE 15+</a><br>
-                                <a href="#">AGE 16+</a><br>
-                                <a href="#">AGE 18+</a><br>
-                                <br>
-                            </li>
-                        
-                            -->
-                        </ul>
-                    </div>
 
                     <div id="shopSection">
                         <br>
-                        <h2>ALL GAMES</h2>
+                        <h2>RESULTS</h2>
                         <hr>
-                        <article class="article">
-                            <img src="img/CALLDUTY.png"/>
+                                  <form style="width:20%; text-align:right;" action="sort.php" method="get">
+  <select name="selector">
+    <option value="lowprice" selected>Low to High Price</option>
+    <option value="highprice">High to Low Price</option>
+  </select>
+  <input type="submit" style="width:20%;font-size:9px; padding:5px;margin:2px;">
+</form>  
+                        <?php
+                        
+                       session_start();
+                        
+                        //Connect to MongoDB
+                        $mongoClient = new MongoClient();
 
-                            <p>Call Of Duty Advanced Warfare</p>
-                            <p>£9.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
+                        //Select a database
+                        $db = $mongoClient->gameShop;
+                        
+                         //Extract the data that was sent to the server
+                        $search_string = filter_input(INPUT_GET, 'selector', FILTER_SANITIZE_STRING);       
+                       
+                        
+                        //Find all of the customers that match  this criteria
+                        $cursor = $db->products->find();
+                        
+                        if ($search_string === "lowprice"){
+                        $cursor = $cursor->sort(array('price' => 1));
+                        } 
+                        if ($search_string === "highprice") {
+                          $cursor = $cursor->sort(array('price' => -1));  
+                        } 
+                        
+                        
+                        
+                        
+                        //Output the results
+                    
+                        foreach ($cursor as $product){
+                        echo '<article class="article">';
+                            echo '<img src='  . $product["image_url"] . ">";
+                            echo'<p>' . $product["title"] . "</p>";
+                            echo'<p>' . $product["price"] . "</p>";
+                             echo '<td><button onclick=\'basket.add("' . $product["_id"] . '", "' . $product["title"] . '", 1,' . $product["price"] . ')\'>ADD TO CART</button>';
+                            echo '</article>';
+                                              }
+                        
+                        
 
-                        <article class="article">
-                            <img src="img/DRAGONAGEXBOX.jpg"/>
+                        //Close the connection
+                        $mongoClient->close();
 
-                            <p>Dragon Age Inquisition</p>
-                            <p>£9.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/HALO.jpg"/>
-
-                            <p>Halo 4</p>
-                            <p>£25.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/diablo.jpg"/>
-
-                            <p>Diablo III Reaper Of Souls</p>
-                            <p>£39.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/starwars.jpg"/>
-
-                            <p>Star Wars Battlefront</p>
-                            <p>£24.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/destiny.jpg"/>
-
-                            <p>Destiny</p>
-                            <p>£25.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/battle.jpg"/>
-
-                            <p>Battlefield 1</p>
-                            <p>£39.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/callps4.png"/>
-
-                            <p>Call Of Duty Infinite Warfare</p>
-                            <p>£30.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
-
-                        <article class="article">
-                            <img src="img/legox.jpg"/>
-
-                            <p>Lego Avengers</p>
-                            <p>£28.99</p>
-                            <button>ADD TO CART</button>
-                        </article>
+                        ?>
+              
 
                     </div>
+                     <h2 style="visibility: hidden;">Basket</h2>
+                    <div id="BasketDiv" style="visibility: hidden;">Loading</div>
+                    <script>
+                        var basket = new Basket("basket.php");
+                        basket.get();
+                    </script>
                 </div>
 
             </section>
@@ -252,3 +201,7 @@
         </div>
     </body>
 </html>
+
+
+                        
+                        

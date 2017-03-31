@@ -46,9 +46,10 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                    <a href="login.html">LOGIN </a>
-                                    <a href="register.html">REGISTER </a>
-                                    <a href="myinfo.html">MY INFO</a>
+                                 <a href="loginAjax.php">LOGIN </a>
+                                    <a href="register.php">REGISTER </a>
+                                    <a href="update.php"> UPDATE MY INFO</a>
+                                    <a href="lastorders.php"> MY ORDERS</a>
                             </li>
                             <!--google shop cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
@@ -64,62 +65,58 @@
             <section>
                 <!--change default section colour to white !-->
                 <div id="section" style="background-color:white">
-                    <!--side navigation !-->
-                    <div id="sidenav">
-                        <ul>
-                            <div class="sidecontentcat">
-                                <h3>GENRE</h3>
-
-                            </div>
-                            <!--side bar content-->
-                            <li class="sidecontent">
-                                <a href="#">STRATEGY GAMES </a><br>
-                                <a href="#">ACTION & ADVENTURE  </a><br>
-                                <a href="#">RPG </a><br>
-                                <a href="#">FIGHTING GAMES </a><br>
-                                <a href="#">DRIVING & RACING</a><br>
-                                <a href="#">SHOOTER</a><br>
-                                <a href="#">CHILDREN'S</a><br>
-                            </li>
-                            <!--
-                            <!--age rating side nav, might be implemented
-                            <br>
-
-                            <div class="sidecontentcat">
-                                <h3>AGE RATING</h3>
-
-                            </div>
-                            <li class="sidecontent">
-                                <a href="#">U</a><br>
-                                <a href="#">PG</a><br>
-                                <a href="#">AGE 11+ </a><br>
-                                <a href="#">AGE 12+ </a><br>
-                                <a href="#">AGE 15+</a><br>
-                                <a href="#">AGE 16+</a><br>
-                                <a href="#">AGE 18+</a><br>
-                                <br>
-                            </li>
-                        
-                            -->
-                        </ul>
-                    </div>
 
                     <div id="shopSection">
                         <br>
                         <h2>RESULTS</h2>
                         <hr>
+                                 <!-- <form style="width:20%; text-align:right;" action="sort.php" method="get">
+  <select name="selector">
+    <option value="lowprice" selected>Low to High Price</option>
+    <option value="highprice">High to Low Price</option>
+  </select>
+  <input type="submit" style="width:20%;font-size:9px; padding:5px;margin:2px;">
+</form>
+                        -->
+                        <form method="post">
+                        
+                            <select name="sorting" style="width:80%">
+                                    <option value="hightolow">Price High to Low</option>
+                                    <option value="lowtohigh">Price Low to High</option>
+                                </select>
+                           <input type="submit">
+                            </form>
                         
      
                         <?php
+                        
+                       session_start();
+                        
                         //Connect to MongoDB
                         $mongoClient = new MongoClient();
 
                         //Select a database
                         $db = $mongoClient->gameShop;
-
-                        //Extract the data that was sent to the server
+                        
+                         //Extract the data that was sent to the server
                         $search_string = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
-
+                        
+                        $sorting = filter_input(INPUT_POST, 'sorting', FILTER_SANITIZE_STRING);
+                        
+                        
+                        
+                        //register search on customer document if customer is logged in
+                        if( array_key_exists("customer_id", $_SESSION) ){
+                            $customer = $_SESSION['customer_id'];
+                            
+                            //find the customer who is logged in
+                            $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
+                            
+                            //push the searched keywords into the array of searches
+                             $newOrderCus = $db->customers->update( array('_id' => new MongoId($customer)), array('$push' => array("searches" => $search_string)));
+                            
+    }            
+                       
                         //Create a PHP array with our search criteria
                         $findCriteria = [
                         '$text' => [ '$search' => $search_string ] 
@@ -128,10 +125,30 @@
                         
                         //Find all of the customers that match  this criteria
                         $cursor = $db->products->find($findCriteria);
+                        
+                        //price low to high as default
+                        $cursor = $cursor->sort(array('price' => -1));
+                        
 
-                        //Output the results
-                    
-                        foreach ($cursor as $product){
+if($sorting=="lowtohigh"){
+    
+$cursor = $cursor->sort(array("price" => 1));
+    echo"<br><p>Results sorted by low to high price</p><br><hr>";
+    
+                        
+}
+                            
+if($sorting=="hightolow"){
+    
+$cursor = $cursor->sort(array("price" => -1));
+     echo"<br><p>Results sorted by high to low price</p><br><hr>";
+    
+    
+}
+   
+
+                        
+                         foreach ($cursor as $product){
                         echo '<article class="article">';
                             echo '<img src='  . $product["image_url"] . ">";
                             echo'<p>' . $product["title"] . "</p>";
@@ -140,12 +157,13 @@
                             echo '</article>';
                                               }
                         
-                        
-
-                        //Close the connection
-                        $mongoClient->close();
+                       
+                         $mongoClient->close();
 
                         ?>
+				
+
+                        
 
                     </div>
                      <h2 style="visibility: hidden;">Basket</h2>
