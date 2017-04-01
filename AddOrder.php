@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>CMS Added Product</title>
+        <title>CMS Edit Order</title>
         <link rel="stylesheet" type="text/css" href="new.css" />	
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
@@ -9,10 +9,8 @@
     <body>
         <div class="container">
 
-
             <header>
                 <div id="logoimg">
-
 
                     <img src="img/logo1.png"/>
 
@@ -23,7 +21,7 @@
                         <br>
                         <ul>
                             <!--staff login page !-->
-                            <li><a href="cmsindex.html">STAFF LOGIN</a></li>
+                            <li><a href="cmslogin.php">STAFF LOGIN</a></li>
                             <!--dropdown menu  !-->
                             <li class="dropdown">
                                 <a class="dropbtn" >PRODUCTS</a>
@@ -33,11 +31,16 @@
                                     <a href="addProduct.html">ADD PRODUCTS</a>
                                     <a href="editProducts.php">EDIT PRODUCTS</a>
 
-
                                 </div>
-                                </li>
-                            <li><a href="viewOrders.php">VIEW ORDERS</a></li>
-
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropbtn" >ORDERS</a>
+                                <div class="dropdown-content">
+                                    <a href="viewOrders.php">VIEW ORDERS</a>
+                                    <a href="editOrders.php">EDIT ORDERS</a>
+                                    <a href="deleteOrders.php">DELETE ORDERS</a>
+                                </div>
+                            </li>
 
                         </ul>
                     </div>
@@ -49,64 +52,83 @@
                     <h1 id ="h1">Update Order</h1>
                     <hr>
                     <br>       
-<?php
+                    <?php
                     
-     //connect to database
-$mongoClient = new MongoClient();
+                    //connect to database
+                    $mongoClient = new MongoClient();
 
-//Select a database
-$db = $mongoClient->gameShop;
-$collection = $db->products;
-                    
- //extact the data that was sent to the server
-$firstname= filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-$lastname= filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-$address= filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
-$city= filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);                             
-$postcode= filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
-$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);                 
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
- 
-//keep customer order the same
-$remCriteria = [
-                        "_id" => new MongoId($id)
-                    ];
-                    
-                    $orders = $db->orders->findOne($remCriteria);
-$pro = $orders[1]["products"];
+                    //Select a database
+                    $db = $mongoClient->gameShop;
+                    $collection = $db->products;
 
+                    session_start();
                     
-                    
-                    
-$customerData = [
-    "firstname" => $firstname,
-    "lastname" => $lastname,
-    "email" => $email,
-    "address" => $address,
-    "city" => $city,
-    "postcode" => $postcode,
-    "products" => $pro,
-    "_id" => new MongoId($id)
-];
-                    
-//Save the product in the database - it will overwrite the data for the product with this ID
-$returnVal = $db->orders->update(array("_id" => new MongoId($id)), $customerData);
-   
+                    //check if staff member is logged in
+                    if (array_key_exists("staff_id", $_SESSION)) {
+                        $staff = $_SESSION['staff_id'];
 
 
-  
-                    if ($returnVal['ok']==1){
-                       echo "<p>Order has been updated successfully</p>";
+                        //extact the data that was sent to the server
+                        $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
                         
-                    }
-                    else {
-                        echo "<p>Error saving the updated order.</p>";
+                        $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+                        
+                        $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
+                        
+                        $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
+                        
+                        $postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
+                        
+                        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+                        
+                        $shipment = filter_input(INPUT_POST, 'shipment', FILTER_SANITIZE_STRING);
+                        
+                        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+                        
+
+                        //keep customers product part of the order the same
+                        $remCriteria = [
+                            "_id" => new MongoId($id)
+                        ];
+
+                        $orders = $db->orders->findOne($remCriteria);
+                        
+                         $ship = ["shipment" => $shipment];
+                            
+                        
+                        //find the prodct part of the order
+                        $pro = $orders[1]["products"];
+
+                        $customerData = [
+                            "firstname" => $firstname,
+                            "lastname" => $lastname,
+                            "email" => $email,
+                            "address" => $address,
+                            "city" => $city,
+                            "postcode" => $postcode
+                        
+                        ];
+
+                        //Save the order in the database - it will overwrite the data for the product with this ID
+                        $returnVal = $db->orders->update(array("_id" => new MongoId($id)), array ($customerData, array("products" => $pro), $ship));
+
+                        //display the result to the user
+                        if ($returnVal['ok'] == 1) {
+                            echo "<p>Order has been updated successfully</p>";
+                        } else {
+                            echo "<p>Error saving the updated order.</p>";
+                        }
+                    } else {
+                        //display msg to log in for staff
+                        echo
+                        '<h2>Please log in first </h2>';
                     }
                     
-//Close the connection
-$mongoClient->close();
+                    //Close the connection
+                    $mongoClient->close();
                     
-                    ?>                    
+                    ?> 
+                    
                 </div>
             </section>
         </div>

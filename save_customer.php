@@ -35,7 +35,7 @@
                             <li><a href="test.html">HOME</a></li>
                             <!--dropdown menu !-->
                             <li class="dropdown">
-                               <a class="dropbtn">SHOP BY CONSOLE</a>
+                                <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
                                     <a href="shoptestMongo.php">ALL GAMES</a>
                                     <a href="shoptestMongoXBOX.php">XBOX </a>
@@ -48,159 +48,170 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                <a href="loginAjax.php">LOGIN </a>
+                                    <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
+                            
                             <!--google shopping cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
                         </ul>
                     </div>
-                    </div>
+                    
                 </nav>
             </header>
             <section>
                 <div id="section" style="text-align:center;background-color:white;">
-      
-                <h2 style="margin:0;padding:00;text-align:left;">My Account Info</h2>
+
+                    <h2 style="margin:0;padding:00;text-align:left;">My Account Info</h2>
 
 
-<?php
-//Connect to database
+                    <?php
+                    //Connect to database
+
+                    session_start();
+
+                    $mongoClient = new MongoClient();
+
+                    //Select a database
+                    $db = $mongoClient->gameShop;
+
                     
-session_start();
+                    $customer = $_SESSION['customer_id'];
                     
-$mongoClient = new MongoClient();
+                    //find the customer with the id
+                    $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
 
-//Select a database
-$db = $mongoClient->gameShop;
+
+                    //Extract the customer details 
+                    $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
                     
-
-$customer = $_SESSION['customer_id'];
+                    $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
                     
-$cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
+                    $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
                     
+                    $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+                    
+                    $phonenumber = filter_input(INPUT_POST, 'phonenumber', FILTER_SANITIZE_STRING);
+                    
+                    $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
+                    
+                    $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
+                    
+                    $postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
+                    
+                    $dateofbirth = filter_input(INPUT_POST, 'dateofbirth', FILTER_SANITIZE_STRING);
 
-//Extract the customer details 
-$firstname= filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-$lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-$password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-$phonenumber = filter_input(INPUT_POST, 'phonenumber', FILTER_SANITIZE_STRING);
-$address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
-$city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
-$postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
-$dateofbirth = filter_input(INPUT_POST, 'dateofbirth', FILTER_SANITIZE_STRING);
-//deleting customers last order and searches!!
-$lastorder = array();
-$searches = array();                    
-$id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
+                    $lastorder = $cust["lastorder"];
+                    
+                  
+                    $searches = $cust["searches"];
+                   
+                    
+                    $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_STRING);
 
-//Construct PHP array with data
-$customerData = [
-    "firstname" => $firstname,
-    "lastname" => $lastname,
-    "email" => $email,
-    "password" => $password,
-    "phonenumber" => $phonenumber,
-    "address" => $address,
-    "city" => $city,
-    "postcode" => $postcode,
-    "dateofbirth" => $dateofbirth,
-    "lastorder" => $lastorder,
-    "searches" => $searches,
-    "_id" => new MongoId($id)
-];
+                    //Construct PHP array with data
+                    $customerData = [
+                        "firstname" => $firstname,
+                        "lastname" => $lastname,
+                        "email" => $email,
+                        "password" => $password,
+                        "phonenumber" => $phonenumber,
+                        "address" => $address,
+                        "city" => $city,
+                        "postcode" => $postcode,
+                        "dateofbirth" => $dateofbirth,
+                        "lastorder" => $lastorder,
+                        "searches" => $searches,
+                        "_id" => new MongoId($id)
+                    ];
 
-//Save the product in the database - it will overwrite the data for the product with this ID
-$returnVal = $db->customers->update(array("_id" => new MongoId($id)), $customerData);
-   
+                    //Save the product in the database - it will overwrite the data for the product with this ID
+                    $returnVal = $db->customers->update(array("_id" => new MongoId($id)), $customerData);
 
-
-  
-                    if ($returnVal['ok']==1){
-                       echo "<p>Your details have been updated successfully</p>";
-                        
-                    }
-                    else {
+                    //display the result to the user
+                    if ($returnVal['ok'] == 1) {
+                        echo "<p>Your details have been updated successfully</p>";
+                    } else {
                         echo "<p>Error saving the updated details.</p>";
                     }
-                    
-//Close the connection
-$mongoClient->close();
-                    
+
+                    //Close the connection
+                    $mongoClient->close();
                     ?>
-                    
-                    </div>
 
-    </section>
+                </div>
 
-    <!--Footer -->
-    <footer>
-        <div id="footer">
-            <article>
-                <h4>INFORMATION </h4>
+            </section>
 
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        star</i>
-                    100% CUSTOMER SATISFACTION!
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        local_shipping</i>
-                    100% FREE DELIVERY!
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        check_box</i>
-                    100% FREE RETURNS!
-                </p>
-            </article>
+            <!--Footer -->
+            <footer>
+                <div id="footer">
+                    <article>
+                        <h4>INFORMATION </h4>
 
-            <article>
-                <h4>PAYMENTS</h4>
-                <img src="img/paypal2.png" style="width:280px;"/>
-            </article>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                star</i>
+                            100% CUSTOMER SATISFACTION!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                local_shipping</i>
+                            100% FREE DELIVERY!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                check_box</i>
+                            100% FREE RETURNS!
+                        </p>
+                    </article>
 
-            <article>
-                <h4>ABOUT US </h4>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        room</i>
-                    Game World , 1234 Example Road,
-                    <br>
-                    London N4 89GR 
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        call</i>
-                    0208-123-456
-                </p>
-                <p>
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        email</i>
-                    info@gameworld.co.uk
-                </p>
-            </article>
+                    <article>
+                        <h4>PAYMENTS</h4>
+                        <img src="img/paypal2.png" style="width:280px;"/>
+                    </article>
 
+                    <article>
+                        <h4>ABOUT US </h4>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                room</i>
+                            Game World , 1234 Example Road,
+                            <br>
+                            London N4 89GR 
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                call</i>
+                            0208-123-456
+                        </p>
+                        <p>
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                email</i>
+                            info@gameworld.co.uk
+                        </p>
+                    </article>
+
+                </div>
+            </footer>
+    
         </div>
-    </footer>
-</div>
-</body>
+    </body>
 </html>
 
 

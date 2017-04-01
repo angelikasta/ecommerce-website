@@ -46,11 +46,13 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                 <a href="loginAjax.php">LOGIN </a>
+                                    <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
+                            
                             <!--google shop cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
@@ -70,103 +72,104 @@
                         <br>
                         <h2>RESULTS</h2>
                         <hr>
-                                 <!-- <form style="width:20%; text-align:right;" action="sort.php" method="get">
-  <select name="selector">
-    <option value="lowprice" selected>Low to High Price</option>
-    <option value="highprice">High to Low Price</option>
-  </select>
-  <input type="submit" style="width:20%;font-size:9px; padding:5px;margin:2px;">
-</form>
-                        -->
+                    
+                        <!-- form to allow sorting -->
                         <form method="post">
-                        
-                            <select name="sorting" style="width:80%">
-                                    <option value="hightolow">Price High to Low</option>
-                                    <option value="lowtohigh">Price Low to High</option>
-                                </select>
-                           <input type="submit">
-                            </form>
-                        
-     
+
+                            <select name="sorting" style="width:20%; display:inline;padding:1;">
+                                <option value="hightolow">Price High to Low</option>
+                                <option value="lowtohigh">Price Low to High</option>
+                                <option value="az">Title A-Z</option>
+                                <option value="za">Title Z-A</option>
+                            </select>
+                            <input type="submit" value="SORT" style="width:7%; padding:0;">
+                        </form>
+
+
                         <?php
                         
-                       session_start();
-                        
+                        session_start();
+
                         //Connect to MongoDB
                         $mongoClient = new MongoClient();
 
                         //Select a database
                         $db = $mongoClient->gameShop;
-                        
-                         //Extract the data that was sent to the server
+
+                        //Extract the data that was sent to the server
                         $search_string = filter_input(INPUT_GET, 'search', FILTER_SANITIZE_STRING);
                         
+                        //extract which sorting is chosen
                         $sorting = filter_input(INPUT_POST, 'sorting', FILTER_SANITIZE_STRING);
-                        
-                        
-                        
+
+
                         //register search on customer document if customer is logged in
-                        if( array_key_exists("customer_id", $_SESSION) ){
+                        if (array_key_exists("customer_id", $_SESSION)) {
                             $customer = $_SESSION['customer_id'];
-                            
+
                             //find the customer who is logged in
                             $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
                             
-                            //push the searched keywords into the array of searches
-                             $newOrderCus = $db->customers->update( array('_id' => new MongoId($customer)), array('$push' => array("searches" => $search_string)));
                             
-    }            
-                       
+                            //push the searched keywords into the array of searches
+                            $newOrderCus = $db->customers->update(array('_id' => new MongoId($customer)), array('$push' => array("searches" => $search_string)));
+                        }
+
                         //Create a PHP array with our search criteria
                         $findCriteria = [
-                        '$text' => [ '$search' => $search_string ] 
+                            '$text' => ['$search' => $search_string]
                         ];
-                        
-                        
-                        //Find all of the customers that match  this criteria
+
+
+                        //Find all of the products that match  this criteria
                         $cursor = $db->products->find($findCriteria);
-                        
+
                         //price low to high as default
                         $cursor = $cursor->sort(array('price' => -1));
-                        
 
-if($sorting=="lowtohigh"){
-    
-$cursor = $cursor->sort(array("price" => 1));
-    echo"<br><p>Results sorted by low to high price</p><br><hr>";
-    
-                        
-}
-                            
-if($sorting=="hightolow"){
-    
-$cursor = $cursor->sort(array("price" => -1));
-     echo"<br><p>Results sorted by high to low price</p><br><hr>";
-    
-    
-}
-   
+                        //sort the result based on option chosen
+                        if ($sorting == "lowtohigh") {
+
+                            $cursor = $cursor->sort(array("price" => 1));
+                            echo"Results sorted by price: low to high<hr>";
+                        }
+
+                        if ($sorting == "hightolow") {
+
+                            $cursor = $cursor->sort(array("price" => -1));
+                            echo"Results sorted by price: high to low <hr>";
+                        }
+                        if ($sorting == "az") {
+
+                            $cursor = $cursor->sort(array("title" => 1));
+                            echo"Results sorted by title: A-Z<hr>";
+                        }
+                        if ($sorting == "za") {
+
+                            $cursor = $cursor->sort(array("title" => -1));
+                            echo"Results sorted by title: Z-A<hr>";
+                        }
 
                         
-                         foreach ($cursor as $product){
-                        echo '<article class="article">';
-                            echo '<img src='  . $product["image_url"] . ">";
+                        //display the results
+                        foreach ($cursor as $product) {
+                            echo '<article class="article">';
+                            echo '<img src=' . $product["image_url"] . ">";
                             echo'<p>' . $product["title"] . "</p>";
                             echo'<p>' . $product["price"] . "</p>";
-                             echo '<td><button onclick=\'basket.add("' . $product["_id"] . '", "' . $product["title"] . '", 1,' . $product["price"] . ')\'>ADD TO CART</button>';
+                            echo '<td><button onclick=\'basket.add("' . $product["_id"] . '", "' . $product["title"] . '", 1,' . $product["price"] . ')\'>ADD TO CART</button>';
                             echo '</article>';
-                                              }
-                        
-                       
-                         $mongoClient->close();
+                        }
 
+
+                        $mongoClient->close();
                         ?>
-				
 
-                        
 
                     </div>
-                     <h2 style="visibility: hidden;">Basket</h2>
+                    
+                    <!--basket object -->
+                    <h2 style="visibility: hidden;">Basket</h2>
                     <div id="BasketDiv" style="visibility: hidden;">Loading</div>
                     <script>
                         var basket = new Basket("basket.php");

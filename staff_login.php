@@ -1,9 +1,8 @@
 <?php
-
     //Start session management
     session_start();
 
-    //Get name and address strings
+    //Get name and address strings 
     $email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
 
     $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);    
@@ -13,41 +12,42 @@
 
     $db = $mongoClient->gameShop;
 
-    $collection = $db->customers;
+    $collection = $db->staff;
 
     //Create a PHP array with our search criteria
     $findCriteria = [
         "email" => $email, 
      ];
 
-    //Find all of the customers that match  this criteria
-    $cursor = $db->customers->find($findCriteria);
+    //Find all of the staff that match  this criteria
+    $cursor = $db->staff->find($findCriteria);
 
-    //Check that there is exactly one customer
+    //Check that there is exactly one staff member
     if($cursor->count() == 0){
         echo 'Email not recognized.';
         return;
     }
     else if($cursor->count() > 1){
-        echo 'Database error: Multiple customers have same email address.';
+        echo 'Database error: Multiple staff have same email address.';
         return;
     }
    
-    //Get customer
-    $customer = $cursor->getNext();
+    //Get staff member
+    $staff = $cursor->getNext();
     
     //Check password
-    if($customer['password'] != $password){
+    if($staff['password'] != $password){
         echo 'Password incorrect.';
         return;
     }
         
     //Start session for this user
     $_SESSION['loggedInUserEmail'] = $email;
-    $_SESSION['customer_id'] = $customer['_id'];
+
+    $_SESSION['staff_id'] = $staff['_id'];
     
     //Inform web page that login is successful
-    echo 'Welcome! Customer logged in';
+    echo 'Welcome! Staff logged in';
     
     //Close the connection
     $mongoClient->close();

@@ -27,14 +27,14 @@
                 </div>
                 <!--navigation-->
                 <nav>
-                    <!--navigation-->
+                
                     <div id="nav">
                         <ul>
 
                             <li><a href="test.html">HOME</a></li>
                             <!--dropdown menu !-->
                             <li class="dropdown">
-                               <a class="dropbtn">SHOP BY CONSOLE</a>
+                                <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
                                     <a href="shoptestMongo.php">ALL GAMES</a>
                                     <a href="shoptestMongoXBOX.php">XBOX </a>
@@ -47,17 +47,19 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                <a href="loginAjax.php">LOGIN </a>
+                                    <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
+
                             <!--google shopping cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
                         </ul>
                     </div>
-                    
+
                 </nav>
             </header>
             <section>
@@ -67,7 +69,6 @@
                     <h1 id ="h1">Register your account</h1>
                     <hr style="width:50%;">
 
-        
 
                     <h2>
                         <!--registration form !-->
@@ -128,63 +129,72 @@
 
                                 <input type="submit">
                             </form>
-                            
-                            
+
+
                         </div>
                     </h2>
                     <br>
                 </div>
             </section>
-<?php
+            
+            <?php
+            //connect to database
+            $mongoClient = new MongoClient();
 
-//connect to database
-$mongoClient = new MongoClient();
+            //Select a database
+            $db = $mongoClient->gameShop;
+            $collection = $db->customers;
 
-//Select a database
-$db = $mongoClient->gameShop;
-$collection = $db->customers;
+            //extact the data that was sent to the server
+            $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
+            
+            $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
+            
+            $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
+            
+            $password = filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
+            
+            $phonenumber = filter_input(INPUT_POST, 'phonenumber', FILTER_SANITIZE_STRING);
+            
+            $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
+            
+            $city = filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
+            
+            $postcode = filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
+            
+            $dateofbirth = filter_input(INPUT_POST, 'dateofbirth', FILTER_SANITIZE_STRING);
 
-//extact the data that was sent to the server
-$firstname= filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
-$lastname= filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
-$email= filter_input(INPUT_POST, 'email', FILTER_SANITIZE_STRING);
-$password= filter_input(INPUT_POST, 'password', FILTER_SANITIZE_STRING);
-$phonenumber= filter_input(INPUT_POST, 'phonenumber', FILTER_SANITIZE_STRING);
-$address= filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
-$city= filter_input(INPUT_POST, 'city', FILTER_SANITIZE_STRING);
-$postcode= filter_input(INPUT_POST, 'postcode', FILTER_SANITIZE_STRING);
-$dateofbirth= filter_input(INPUT_POST, 'dateofbirth', FILTER_SANITIZE_STRING);
 
+            //convert to PHP array
+            $dataArray = [
+                "firstname" => $firstname,
+                "lastname" => $lastname,
+                "email" => $email,
+                "password" => $password,
+                "phonenumber" => $phonenumber,
+                "address" => $address,
+                "city" => $city,
+                "postcode" => $postcode,
+                "dateofbirth" => $dateofbirth,
+                //add an empty array for orders and searches
+                "lastorder" => array(),
+                "searches" => array()
+            ];
 
-//convert to PHP array
-$dataArray = [
-        "firstname" => $firstname,
-        "lastname" => $lastname,
-        "email" => $email,
-        "password" => $password,
-        "phonenumber" => $phonenumber,
-        "address" => $address,
-        "city" => $city,
-        "postcode" => $postcode,
-        "dateofbirth" => $dateofbirth,
-        "lastorder" => array(),
-        "searches" => array()
-];
+            //Addthe new customer to the database
+            $returnVal = $collection->insert($dataArray);
 
-//Addthe new product to the database
-$returnVal = $collection->insert($dataArray);
+            //Echo resultback to user
+            if ($returnVal['ok'] == 1) {
+                echo 'ok';
+            } else {
+                echo 'Error adding customer';
+            }
 
-//Echo resultback to user
-if($returnVal['ok']==1){
-    echo 'ok' ;
-}
-else {
-     echo 'Error adding customer';
-}
-
-//close the connection
-$mongoClient->close();
-?>
+            //close the connection
+            $mongoClient->close();
+            ?>
+            
             <!--footer-->
             <footer>
                 <div id="footer">
@@ -251,4 +261,3 @@ $mongoClient->close();
         </div>
     </body>
 </html>
-

@@ -9,29 +9,31 @@ $db = $mongoClient->gameShop;
 
 
 //Create a basket document if we do not have one
-if( !array_key_exists("basket_id", $_SESSION) ){
+if (!array_key_exists("basket_id", $_SESSION)) {
+    
     //Add an empty basket 
     $dataArray = ["products" => []];
     $returnVal = $db->baskets->insert($dataArray);
 
     //Check result 
-    if($returnVal['ok'] != 1){
+    if ($returnVal['ok'] != 1) {
         throw new Exception("Error adding empty basket to MongoDB");
     }
 
     //Store basket ID in session key
-    $_SESSION['basket_id'] = (string)$dataArray['_id'];
+    $_SESSION['basket_id'] = (string) $dataArray['_id'];
 }
 
 //Request for basket
-if ($_SERVER['REQUEST_METHOD'] === 'GET'){
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    
     //Find basket with specified ID
     $findCriteria["_id"] = new MongoId($_SESSION['basket_id']);
     $basketCursor = $db->baskets->find($findCriteria);
 
     //Check that we have found exactly one basket
-    $numResults = $basketCursor->count();//Number of products in database 
-    if($numResults == 0){
+    $numResults = $basketCursor->count(); //Number of products in database 
+    if ($numResults == 0) {
         throw new Exception("Basket not found");
     }
 
@@ -39,10 +41,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET'){
     $basket = $basketCursor->next();
 
     //Return product in JSON format
-    echo json_encode($basket);//Convert PHP representation of product into JSON 
+    echo json_encode($basket); //Convert PHP representation of product into JSON 
 }
 //Modified basket has been sent to server
-else if($_SERVER['REQUEST_METHOD'] === 'POST'){
+else if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    
     //Get JSON document containing basket from POST
     $basketJSON = $_POST['json'];
 
@@ -52,17 +55,15 @@ else if($_SERVER['REQUEST_METHOD'] === 'POST'){
     //Add ID field to basket array
     $basketPHPArray['_id'] = new MongoId($_SESSION['basket_id']);
 
-
     //Save the product in the database - it will overwrite the data for the basket with this ID
     $returnVal = $db->baskets->save($basketPHPArray);
-    if($returnVal['ok'] != 1){
+    if ($returnVal['ok'] != 1) {
         throw new Exception("Error updating MongoDB basket.");
     }
 
     //Basket updated successfully
     echo 'ok';
-}
-else{
+} else {
     throw new Exception("Request method not recognized.");
 };
 

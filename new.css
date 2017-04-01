@@ -470,24 +470,7 @@ input[type=submit] {
     color: #4eab04;	
     font: 13px Arial Black;
 }
-/*
-#cart article {
-    display: inline-block;
-    float: left;
-    width: 100%;
-    text-align: left;
-    padding: 20px 0 1px 50px;
-    height: 100px;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    font: 12px Arial Black;
-}
-#cart article img {
-    width:200px;
-    height:200px;
 
-} */
 #cart {
     text-align: center;
     width: 100%;

@@ -25,7 +25,6 @@
                         <img src="img/logo1.png"/>
                     </a>
                 </div>
-
                 <nav>
                     <div id="nav">
                         <ul>
@@ -46,11 +45,13 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                              <a href="loginAjax.php">LOGIN </a>
+                                    <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
+                        
                             <!--google shop cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
@@ -66,66 +67,101 @@
                 <!--change default section colour to white !-->
                 <div id="section" style="background-color:white">
                     <!--side navigation !-->
-                   
 
                     <div id="shopSection">
                         <br>
                         <h2>PLAYSTATION GAMES</h2>
                         <hr>
-                        <!--
-                        <form style="width:20%; text-align:right;" action="sort.php" method="get">
-  <select name="selector">
-    <option value="lowprice">Low to High Price</option>
-    <option value="highprice">High to Low Price</option>
-  </select>
-  <input type="submit" style="width:20%;font-size:9px; padding:5px;margin:2px;">
-</form>
-                        -->
+                        
+                        <!-- form to allow sorting -->
+                        <form method="post">
+
+                            <select name="sorting" style="width:20%; display:inline;padding:1;">
+                                <option value="hightolow">Price High to Low</option>
+                                <option value="lowtohigh">Price Low to High</option>
+                                <option value="az">Title A-Z</option>
+                                <option value="za">Title Z-A</option>
+                            </select>
+                            <input type="submit" value="SORT" style="width:7%; padding:0;">
+                        </form>
+                        
                         <?php
                         
+                        //connect to mongo
                         $mongoClient = new MongoClient();
-                        $db = $mongoClient->gameShop;
                         
-                    
-                        //Find xbox
+                        //connect to the database
+                        $db = $mongoClient->gameShop;
+
+
+                        //Find all products
                         $products = $db->products->find();
-            
-                         //display all items matching the criteria
+                        
+                        //default sort high to low price
+                        $products = $products->sort(array("price" => -1));
+                        
+                        //extract which sorting is chosen
+                        $sorting = filter_input(INPUT_POST, 'sorting', FILTER_SANITIZE_STRING);
+                        
+                        
+                        //sort the result based on option chosen
+                        if ($sorting == "lowtohigh") {
+
+                            $products = $products->sort(array("price" => 1));
+                            echo"Results sorted by price: low to high<hr>";
+                        }
+
+                        if ($sorting == "hightolow") {
+
+                            $products = $products->sort(array("price" => -1));
+                            echo"Results sorted by price: high to low<hr>";
+                        }
+                        if ($sorting == "az") {
+
+                            $products = $products->sort(array("title" => 1));
+                            echo"Results sorted by title: A-Z<hr>";
+                        }
+                        if ($sorting == "za") {
+
+                            $products = $products->sort(array("title" => -1));
+                            echo"Results sorted by title: Z-A<hr>";
+                        }
+
+                        
+
+                        //display all items matching the criteria
                         foreach ($products as $document) {
-                            if($document["console"]=="Playstation"){
-                                 //check if the item is in stock and display all
-                            if($document["quantity"]>=1){
-                            
-                           echo '<article class="article">';
-                            echo '<img src='  . $document["image_url"] . ">";
-                            echo'<p>' . $document["title"] . "</p>";
-                            echo'<p>' . $document["price"] . "</p>";
-                             echo '<td><button onclick=\'basket.add("' . $document["_id"] . '", "' . $document["title"] . '", 1,' . $document["price"] . ')\'>ADD TO CART</button>';
-                            echo '</article>';
-                                              }
-                            else {
-                                //display items currently out of stock 
-                                echo '<article class="article">';
-                            echo '<img src='  . $document["image_url"] . ">";
-                            echo'<p>' . $document["title"] . "</p>";
-                            echo'<p>' . $document["price"] . "</p>";
-                                 //change the appearance of the button for items out of stock
-                             echo '<td><button style="background:black; border:black;">OUT OF STOCK</button>';
-                            echo '</article>';
-                                
+                            if ($document["console"] == "Playstation") {
+                                //check if the item is in stock and display all
+                                if ($document["quantity"] >= 1) {
+
+                                    echo '<article class="article">';
+                                    echo '<img src=' . $document["image_url"] . ">";
+                                    echo'<p>' . $document["title"] . "</p>";
+                                    echo'<p>' . $document["price"] . "</p>";
+                                    echo '<td><button onclick=\'basket.add("' . $document["_id"] . '", "' . $document["title"] . '", 1,' . $document["price"] . ')\'>ADD TO CART</button>';
+                                    echo '</article>';
+                                    
+                                } else {
+                                    
+                                    //display items currently out of stock 
+                                    echo '<article class="article">';
+                                    echo '<img src=' . $document["image_url"] . ">";
+                                    echo'<p>' . $document["title"] . "</p>";
+                                    echo'<p>' . $document["price"] . "</p>";
+                                    //change the appearance of the button for items out of stock
+                                    echo '<td><button style="background:black; border:black;">OUT OF STOCK</button>';
+                                    echo '</article>';
+                                }
                             }
                         }
-                        }
-                        
+
                         $mongoClient->close();
-                        
                         ?>
-                        
-                    
-                    
 
                     </div>
-                     <h2 style="visibility: hidden;">Basket</h2>
+                    <!--basket functionality-->
+                    <h2 style="visibility: hidden;">Basket</h2>
                     <div id="BasketDiv" style="visibility: hidden;">Loading</div>
                     <script>
                         var basket = new Basket("basket.php");
@@ -195,8 +231,6 @@
                             info@gameworld.co.uk
                         </p>
                     </article>
-
-
                 </div>
             </footer>
         </div>

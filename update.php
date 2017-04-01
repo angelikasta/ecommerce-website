@@ -35,7 +35,7 @@
                             <li><a href="test.html">HOME</a></li>
                             <!--dropdown menu !-->
                             <li class="dropdown">
-                               <a class="dropbtn">SHOP BY CONSOLE</a>
+                                <a class="dropbtn">SHOP BY CONSOLE</a>
                                 <div class="dropdown-content">
                                     <a href="shoptestMongo.php">ALL GAMES</a>
                                     <a href="shoptestMongoXBOX.php">XBOX </a>
@@ -52,143 +52,134 @@
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
                             <!--google shopping cart icon!-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
                         </ul>
                     </div>
-                    </div>
+
                 </nav>
             </header>
             <section>
                 <div id="section" style="text-align:center;background-color:white;">
-      
-                <h2 style="margin:0;padding:00;text-align:left;">My Account Info</h2>
+
+                    <h2 style="margin:0;padding:00;text-align:left;">My Account Info</h2>
+
+
+                    <?php
                     
-                    
-                   <?php 
-                  
                     session_start();
-              
-                   if( array_key_exists("customer_id", $_SESSION) ){
-         
-                    $customer = $_SESSION['customer_id'];
                     
+                    
+                    //connect to mongodb
                     $mongoClient = new MongoClient();
-                    
-                        $db = $mongoClient->gameShop;
-                    
-                
+
+                    $db = $mongoClient->gameShop;
+
+
+                    //check if user is logged in
+                    if (array_key_exists("customer_id", $_SESSION)) {
+
+                        $customer = $_SESSION['customer_id'];
                         
-                       
-                        $newOrderCus = $db->customers->update( array('_id' => new MongoId($customer)), array('$set' => array("lastorder" => [])));
                         
-                       $newOrderCus2 = $db->customers->update( array('_id' => new MongoId($customer)), array('$set' => array("searches" => [])));
-                       
-                       $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
-                       
-                       
-                    
-                    echo '<h3> Update details </h3>
+                        $cust = $db->customers->findOne(['_id' => new MongoId($customer)]);
+
+
+                        //display form to change customer details
+                        echo '<h3> Update details </h3>
                     <hr style="width:50%;">';
-                    
-                    echo "<br>";
-                  
+
+                        echo "<br>";
+
                         echo '<div id="form2"><form action="save_customer.php" method="post">';
-    echo 'First name: <input type="text" name="firstname" value="' . $cust['firstname'] . '" required><br>';
-    echo 'Last name: <input type="text" name="lastname" value="' . $cust['lastname'] . '" required><br>';
-    echo 'Email: <input type="text" name="email" value="' . $cust['email'] . '" required><br>';
-    echo 'Password: <input type="password" name="password" value="' . $cust['password'] . '" required><br>'; 
-    echo 'Phone number: <input type="text" name="phonenumber" value="' . $cust['phonenumber'] . '" required><br>';
-    echo 'Address: <input type="text" name="address" value="' . $cust['address'] . '" required><br>';
-    echo 'City: <input type="text" name="city" value="' . $cust['city'] . '" required><br>';
-    echo 'Post code: <input type="text" name="postcode" value="' . $cust['postcode'] . '" required><br>';
-    echo 'Date of birth <input type="date" name="dateofbirth" value="' . $cust['dateofbirth'] . '" required>'; 
-                       
-                       
-                    //add array of products??
-                       
-    echo '<input type="hidden" name="lastorder" value=" ">';
-    echo '<input type="hidden" name="searches" value=" ">';
-    echo '<input type="hidden" name="id" value="' . $cust['_id'] . '" required>'; 
-    echo '<input type="submit">';
-    echo '</form><br></div><br>';
-                   }
-                    else {
-                        
+                        echo 'First name: <input type="text" name="firstname" value="' . $cust['firstname'] . '" required><br>';
+                        echo 'Last name: <input type="text" name="lastname" value="' . $cust['lastname'] . '" required><br>';
+                        echo 'Email: <input type="text" name="email" value="' . $cust['email'] . '" required><br>';
+                        echo 'Password: <input type="password" name="password" value="' . $cust['password'] . '" required><br>';
+                        echo 'Phone number: <input type="text" name="phonenumber" value="' . $cust['phonenumber'] . '" required><br>';
+                        echo 'Address: <input type="text" name="address" value="' . $cust['address'] . '" required><br>';
+                        echo 'City: <input type="text" name="city" value="' . $cust['city'] . '" required><br>';
+                        echo 'Post code: <input type="text" name="postcode" value="' . $cust['postcode'] . '" required><br>';
+                        echo 'Date of birth <input type="date" name="dateofbirth" value="' . $cust['dateofbirth'] . '" required>';
+                        echo '<input type="hidden" name="id" value="' . $cust['_id'] . '" required>';
+                        echo '<input type="submit">';
+                        echo '</form><br></div><br>';
+                    } else {
+                        //display a msg to log in
                         echo "<p> Please log in to change your details first </p>";
                     }
-                    
                     ?>
-                    
+
                     <br>
+                </div>
+
+            </section>
+
+            <!--Footer -->
+            <footer>
+                <div id="footer">
+                    <article>
+                        <h4>INFORMATION </h4>
+
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                star</i>
+                            100% CUSTOMER SATISFACTION!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                local_shipping</i>
+                            100% FREE DELIVERY!
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                check_box</i>
+                            100% FREE RETURNS!
+                        </p>
+                    </article>
+
+                    <article>
+                        <h4>PAYMENTS</h4>
+                        <img src="img/paypal2.png" style="width:280px;"/>
+                    </article>
+
+                    <article>
+                        <h4>ABOUT US </h4>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                room</i>
+                            Game World , 1234 Example Road,
+                            <br>
+                            London N4 89GR 
+                        </p>
+                        <p>
+                            <!--google icon!-->
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                call</i>
+                            0208-123-456
+                        </p>
+                        <p>
+                            <i class="material-icons" style="color:#4eab04; font-size:16px;
+                               padding:0px 3px 0px 3px;">
+                                email</i>
+                            info@gameworld.co.uk
+                        </p>
+                    </article>
+
+                </div>
+            </footer>
         </div>
-
-    </section>
-
-    <!--Footer -->
-    <footer>
-        <div id="footer">
-            <article>
-                <h4>INFORMATION </h4>
-
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        star</i>
-                    100% CUSTOMER SATISFACTION!
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        local_shipping</i>
-                    100% FREE DELIVERY!
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        check_box</i>
-                    100% FREE RETURNS!
-                </p>
-            </article>
-
-            <article>
-                <h4>PAYMENTS</h4>
-                <img src="img/paypal2.png" style="width:280px;"/>
-            </article>
-
-            <article>
-                <h4>ABOUT US </h4>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        room</i>
-                    Game World , 1234 Example Road,
-                    <br>
-                    London N4 89GR 
-                </p>
-                <p>
-                    <!--google icon!-->
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        call</i>
-                    0208-123-456
-                </p>
-                <p>
-                    <i class="material-icons" style="color:#4eab04; font-size:16px;
-                       padding:0px 3px 0px 3px;">
-                        email</i>
-                    info@gameworld.co.uk
-                </p>
-            </article>
-
-        </div>
-    </footer>
-</div>
-</body>
+    </body>
 </html>

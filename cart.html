@@ -49,43 +49,40 @@
                             <li class="dropdown">
                                 <a class="dropbtn">MY ACCOUNT</a>
                                 <div class="dropdown-content">
-                                  <a href="loginAjax.php">LOGIN </a>
+                                    <a href="loginAjax.php">LOGIN </a>
                                     <a href="register.php">REGISTER </a>
                                     <a href="update.php"> UPDATE MY INFO</a>
                                     <a href="lastorders.php"> MY ORDERS</a>
+                                </div>
                             </li>
+                            
                             <!--google shopping cart icon !-->
                             <a href="cart.html"><i class="material-icons" style="color:white;text-align:right;font-size:26px;">
                                     shopping_cart</i></a>
 
-
                         </ul>
-                    </div>
                     </div>
                 </nav>
             </header>
             <section>
                 <!--change default setting of text align to center !-->
                 <div id="section" style="text-align:center;background-color:white">
-                 
-                  <h2 style="margin:0;padding:00;text-align:left;">Basket</h2>
-                    
-                    <div id="cart">
-                       
-                            
-                        <div id="BasketDiv">Loading                           </div>
 
-                    <script>
-                        var basket = new Basket("basket.php");
-                        basket.get();
-                    </script>
-                            
+                    <h2 style="margin:0;padding:00;text-align:left;">Basket</h2>
+
+                    <div id="cart">
                         
-                        
+                        <!-- display the basket -->
+                        <div id="BasketDiv">Loading </div>
+
+                        <script>
+                            var basket = new Basket("basket.php");
+                            basket.get();
+                        </script>
+
                     </div>
                 </div>
-        </section>
-    
+            </section>
 
             <!--footer-->
             <footer>
@@ -150,6 +147,6 @@
 
                 </div>
             </footer>
+        </div>
     </body>
-      
 </html>
